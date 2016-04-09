@@ -9,10 +9,20 @@ import java.util.Properties;
 
 import javax.swing.*;
 
+
+/* *
+ * Klasa reperezentuj¹ca g³ówne okno naszej gry
+ * zawiera elementy reprezentuj¹ce preferowane i minimalne wymiary okna
+ * 
+ * 
+ */
 @SuppressWarnings("serial")
 public class LWindow extends JFrame {
 	Dimension preferredDim;
 	Dimension minDim;
+	/**
+	 * konstruktor domyœlny klasy okna inicjalizuj¹cy panel klasy LPanel
+	 */
 	public LWindow()
 	{
 		super("Lunar Lander");
@@ -20,7 +30,7 @@ public class LWindow extends JFrame {
 			loadProperties("window.properties");
 			
 			setPreferredSize(preferredDim);
-			setMinimumSize(minDim);
+			//setMinimumSize(minDim);
 			
 			LPanel panel = new LPanel();
 			
@@ -30,6 +40,10 @@ public class LWindow extends JFrame {
 			setVisible(true);
 
 	}
+	/**
+	 * funkcja wczytujaca ustawienia okna z pliku
+	 * @param filename nazwa pliku
+	 */
 	private void loadProperties(String filename)
 	{
 		try 

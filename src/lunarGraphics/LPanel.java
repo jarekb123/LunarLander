@@ -19,30 +19,34 @@ import java.util.Properties;
 import javax.swing.JPanel;
 
 import lunarMap.GameMap;
-import lunarMap.HillComponent;
-import lunarMap.LandingComponent;
-import lunarMap.Level;
-import lunarMap.MapComponent;
-import lunarPlayer.Player;
 
+import lunarMap.Level;
+
+import lunarPlayer.Player;
+/**
+ * klasa w której przechowywane s¹ wszystkie elementy zwi¹zane z gr¹
+ * @param level zmienna klay @class Level która przechowuje wszystkie informacje zwi¹zane z danym poziomem
+ * @param player zmienna @class Player, która przechowuje wszystkie informacje zwi¹zane z danym graczem
+ */
 @SuppressWarnings("serial")
 public class LPanel extends JPanel {
 
-	GameMap map;
+	
 	Level level;
-	Dimension gameDimension;
 	Player player;
 	public LPanel()
 	{
 		setPreferredSize(new Dimension(640, 480));
-		gameDimension = getSize();
 		level = new Level();
 		player = new Player();
 		player.loadPlayer("player.properties");
 		level.loadLevel("map.properties");
 		
 	}
-	
+	/**
+	 * funkcja wywo³ywana za k¹zdym razem gdy coœ siê zmienia z oknem lub w oknie
+	 * @param g zmienna zwi¹zana z grafik¹
+	 */
 	@Override
 	protected void paintComponent(Graphics g) {
 		// TODO Auto-generated method stub
