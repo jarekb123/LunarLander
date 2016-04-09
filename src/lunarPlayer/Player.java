@@ -9,7 +9,9 @@ import java.io.InputStream;
 import java.util.Properties;
 
 import javax.imageio.ImageIO;
-
+/**
+ * klasa zawieraj¹ca wszelkie dane o graczu
+ */
 public class Player {
 	private String name;
 	private int score;
@@ -34,10 +36,18 @@ public class Player {
 		vX=0D;
 		vY=0D;
 	}
+	/**
+	 * metoda zwracaj¹ca nazwê gracza
+	 * @return name
+	 */
 	public String  getName()
 	{
 		return name;
 	}
+	/**
+	 * metoda wczytuj¹ca dane z pliku konfiguracyjnego
+	 * @param filename- nazwa pliku
+	 */
 	public void loadPlayer(String filename)
 	{
 		System.setProperty("file.encoding","UTF-8");
@@ -65,6 +75,10 @@ public class Player {
        	 e.printStackTrace();
         }
 	}
+	/** 
+	 * metoda zwracaj¹ca obrazek gracza
+	 * @return obrazek z pliku @param imgPath
+	 */
 	public BufferedImage getImage()
 	{
 		try
@@ -79,39 +93,74 @@ public class Player {
 			return null;
 		}
 	}
-
+/**
+ * metoda zwracaj¹ca prêdkoœæ w osi X
+ * @return vX
+ */
 	public double getvX()
 	{
 		return vX;
 	}
+	/**
+	 * metoda zwracaj¹ca prêdkoœæ w osi Y
+	 * @return vY
+	 */
 	public double getvY()
 	{
 		return vY;
 	}
+	/**
+	 * metoda zwracaj¹ca wspolrzedna X
+	 * @return x
+	 */
 	public double getX()
 	{
 		return x;
 	}
+	/**
+	 * metoda zwracajaca wspolrzedna Y
+	 * @return y
+	 */
 	public double getY()
 	{
 		return y;
 	}
+	/**
+	 * metoda zwracajaca wynik gracza
+	 * @return score
+	 */
 	public int getScore()
 	{
 		return score;
 	}
+	/**
+	 * metoda zwracajaca poziom paliwa
+	 * @return fuelLevel
+	 */
 	public double getFuelLevel()
 	{
 		return this.fuelLevel;
 	}
+	/**
+	 * metoda ustalajaca poziom paliwa
+	 * @param level- nowy poziom paliwa
+	 */
 	public void setFuelLevel(double level)
 	{
 		this.fuelLevel=level;
 	}
+	/**
+	 *m metoda ustalajaca wspolrzedna X
+	 * @param x-nowa wspolrzedna na osi X
+	 */
 	public void setX(double x)
 	{
 		this.x=x;
 	}
+	/**
+	 * metoda ustalajaca wspolrzedna Y
+	 * @param y-nowa wspolrzedna y
+	 */
 	public void setY(double y)
 	{
 		this.y=y;
