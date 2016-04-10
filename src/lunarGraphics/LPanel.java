@@ -25,14 +25,15 @@ import lunarMap.Level;
 import lunarPlayer.Player;
 /**
  * klasa w której przechowywane s¹ wszystkie elementy zwi¹zane z gr¹
- * @param level zmienna klay @class Level która przechowuje wszystkie informacje zwi¹zane z danym poziomem
- * @param player zmienna @class Player, która przechowuje wszystkie informacje zwi¹zane z danym graczem
+ * 
+ *
  */
 @SuppressWarnings("serial")
 public class LPanel extends JPanel {
 
-	
+	/** Obiekt klasy @class Level która przechowuje wszystkie informacje zwi¹zane z danym poziomem */
 	Level level;
+	/** Obiekt @class Player, która przechowuje wszystkie informacje zwi¹zane z danym graczem */
 	Player player;
 	public LPanel()
 	{

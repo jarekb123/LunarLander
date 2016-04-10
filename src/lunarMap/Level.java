@@ -75,7 +75,7 @@ public class Level {
 	}
 	/**
 	 * metoda wczytuj¹ca dane dla obiektu gameMap klasy @class GameMap
-	 * @param filename
+	 * @param filename nazwa pliku z ustawieniami mapy
 	 */
 	public void loadMap(String filename)
 	{
