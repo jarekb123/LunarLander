@@ -31,9 +31,15 @@ import lunarPlayer.Player;
 @SuppressWarnings("serial")
 public class LPanel extends JPanel {
 
+<<<<<<< HEAD
 	/** Obiekt klasy Level ktora przechowuje wszystkie informacje związane z danym poziomem */
 	Level level;
 	/** Obiekt Player, która przechowuje wszystkie informacje związane z danym graczem */
+=======
+	/** Obiekt klasy @class Level która przechowuje wszystkie informacje związane z danym poziomem */
+	Level level;
+	/** Obiekt @class Player, która przechowuje wszystkie informacje związane z danym graczem */
+>>>>>>> 965a85a6da0ecf269e232be6af31fb953cbd4bf6
 	Player player;
 	public LPanel()
 	{
@@ -45,9 +51,15 @@ public class LPanel extends JPanel {
 		
 	}
 	/**
+<<<<<<< HEAD
 	 * metoda wywoływana za kazdym razem gdy coś się zmienia z oknem lub w oknie
 	 * @param g zmienna związana z grafiką
 	 * 	 */
+=======
+	 * funkcja wywoływana za kązdym razem gdy coś się zmienia z oknem lub w oknie
+	 * @param g zmienna związana z grafiką
+	 */
+>>>>>>> 965a85a6da0ecf269e232be6af31fb953cbd4bf6
 	@Override
 	protected void paintComponent(Graphics g) {
 		// TODO Auto-generated method stub

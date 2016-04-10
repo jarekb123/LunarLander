@@ -42,7 +42,11 @@ public class Level {
 	}
 	/**
 	 * metoda wczytująca dane z pliku konfiguracyjnego
+<<<<<<< HEAD
 	 * @param filename- nazwa pliku
+=======
+	 * @param filename nazwa pliku
+>>>>>>> 965a85a6da0ecf269e232be6af31fb953cbd4bf6
 	 */
 	public void loadLevel(String filename)
 	{
@@ -74,8 +78,12 @@ public class Level {
         }
 	}
 	/**
+<<<<<<< HEAD
 	 * metoda wczytująca dane dla obiektu gameMap klasy 
 	 * @class GameMap
+=======
+	 * metoda wczytująca dane dla obiektu gameMap klasy @class GameMap
+>>>>>>> 965a85a6da0ecf269e232be6af31fb953cbd4bf6
 	 * @param filename nazwa pliku z ustawieniami mapy
 	 */
 	public void loadMap(String filename)
@@ -83,7 +91,11 @@ public class Level {
 		gameMap.loadMap(filename);
 	}
 	/**
+<<<<<<< HEAD
 	 * metoda pozwalająca na dostęp do obiektu gameMap klasy GameMap
+=======
+	 * metoda pozwalająca na dostęp do obiektu gameMap klasy @class GameMap
+>>>>>>> 965a85a6da0ecf269e232be6af31fb953cbd4bf6
 	 * @return gameMap
 	 */
 	public GameMap getMap()

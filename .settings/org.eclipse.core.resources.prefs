@@ -1,2 +1,11 @@
 eclipse.preferences.version=1
+<<<<<<< HEAD
+=======
+encoding//src/lunarGraphics/LPanel.java=UTF-8
+encoding//src/lunarGraphics/LWindow.java=UTF-8
+encoding//src/lunarGraphics/Lunar.java=UTF-8
+encoding//src/lunarMap/GameMap.java=UTF-8
+encoding//src/lunarMap/Level.java=UTF-8
+encoding//src/lunarPlayer/Player.java=UTF-8
+>>>>>>> 965a85a6da0ecf269e232be6af31fb953cbd4bf6
 encoding/<project>=UTF-8

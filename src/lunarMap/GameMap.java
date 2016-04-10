@@ -14,11 +14,16 @@ import java.util.List;
 import java.util.Properties;
 
 import javax.imageio.ImageIO;
+<<<<<<< HEAD
 /**
  * klasa zawiera dane związane z planszą, czyli ścieżkę do pliku z tłem(imgPath) i punktami podloza(x[],y[])
  * 
  */
 public class GameMap {
+=======
+
+public class GameMap{
+>>>>>>> 965a85a6da0ecf269e232be6af31fb953cbd4bf6
 	
 	private Double [] x, y; 
 	private String imgPath;
