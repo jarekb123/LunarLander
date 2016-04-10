@@ -14,12 +14,19 @@ import java.util.List;
 import java.util.Properties;
 
 import javax.imageio.ImageIO;
-
+/**
+ * klasa zawiera dane związane z planszą, czyli ścieżkę do pliku z tłem(imgPath) i punktami podloza(x[],y[])
+ * 
+ */
 public class GameMap {
 	
 	private Double [] x, y; 
 	private String imgPath;
-	
+	/**
+	 * metoda zwracająca plansze zgodna z wymiarami okna
+	 * @param gameDimension- wymiary okna
+	 * @return Polygon o wspólrzędnych zgodnych z x[] i y[]
+	 */
 	public Polygon returnMapPolygon(Dimension gameDimension)
 	{
 		Polygon p = new Polygon();
@@ -29,6 +36,10 @@ public class GameMap {
 		}
 		return p;
 	}
+	/**
+	 * metoda zwracająca obraz tła z pliku
+	 * @return obraz klasy BufferedImage
+	 */
 	public BufferedImage getImage()
 	{
 		try
@@ -43,6 +54,10 @@ public class GameMap {
 			return null;
 		}
 	}
+	/**
+	 * metoda wczytujaca mapę z pliku konfiguracyjnego
+	 * @param filename - ścieżka do pliku
+	 */
 	public void loadMap(String filename)
 	{
 		System.setProperty("file.encoding","UTF-8");
@@ -79,14 +94,5 @@ public class GameMap {
        	 e.printStackTrace();
         }
 	}
-/*	public List<Dimension> addCorners(Dimension gameDimension)
-	{
-		List<Dimension> toRet=new ArrayList<Dimension>();
-		
-		Dimension dim1=new Dimension(gameDimension.width,gameDimension.height);
-		Dimension dim2=new Dimension(0,gameDimension.height);
-		toRet.add(dim1);
-		toRet.add(dim2);
-		return toRet;
-	}*/
+
 }

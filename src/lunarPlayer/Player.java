@@ -10,7 +10,7 @@ import java.util.Properties;
 
 import javax.imageio.ImageIO;
 /**
- * klasa zawieraj¹ca wszelkie dane o graczu
+ * klasa zawierajï¿½ca wszelkie dane o graczu
  */
 public class Player {
 	private String name;
@@ -37,7 +37,7 @@ public class Player {
 		vY=0D;
 	}
 	/**
-	 * metoda zwracaj¹ca nazwê gracza
+	 * metoda zwracajï¿½ca nazwï¿½ gracza
 	 * @return name
 	 */
 	public String  getName()
@@ -45,7 +45,7 @@ public class Player {
 		return name;
 	}
 	/**
-	 * metoda wczytuj¹ca dane z pliku konfiguracyjnego
+	 * metoda wczytujï¿½ca dane z pliku konfiguracyjnego
 	 * @param filename- nazwa pliku
 	 */
 	public void loadPlayer(String filename)
@@ -76,8 +76,9 @@ public class Player {
         }
 	}
 	/** 
-	 * metoda zwracaj¹ca obrazek gracza
-	 * @return obrazek z pliku @param imgPath
+	 * metoda zwracajÄ…ca obrazek gracza
+	 * @return obrazek z pliku 
+	 * @param imgPath
 	 */
 	public BufferedImage getImage()
 	{
@@ -94,7 +95,7 @@ public class Player {
 		}
 	}
 /**
- * metoda zwracaj¹ca prêdkoœæ w osi X
+ * metoda zwracajÄ…ca prÄ™dkoÅ›Ä‡ w osi X
  * @return vX
  */
 	public double getvX()
@@ -102,7 +103,7 @@ public class Player {
 		return vX;
 	}
 	/**
-	 * metoda zwracaj¹ca prêdkoœæ w osi Y
+	 * metoda zwracajÄ…ca prÄ™dkoÅ›Ä‡ w osi Y
 	 * @return vY
 	 */
 	public double getvY()
@@ -110,7 +111,7 @@ public class Player {
 		return vY;
 	}
 	/**
-	 * metoda zwracaj¹ca wspolrzedna X
+	 * metoda zwracajÄ…ca wspolrzedna X
 	 * @return x
 	 */
 	public double getX()
