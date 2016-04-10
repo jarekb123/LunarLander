@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 /**
- * Klasa zawieraj¹ca wszystkie elementy danego poziomu
+ * Klasa zawierajÄ…ca wszystkie elementy danego poziomu
  * 
  *
  */
@@ -21,11 +21,11 @@ public class Level {
 	private GameMap gameMap;
 	/**
 	 * 
-	 * @param number jaki numer porz¹dkowy ma dany level
+	 * @param number jaki numer porzÄ…dkowy ma dany level
 	 * @param gravity jakie jest przyspieszenie na tym poziomie
-	 * @param maxVx jaka jest maxymalna prêdkoœæ w osi x aby wyl¹dowaæ
-	 * @param maxVy jaka jest maxymalna prêdkoœæ w osi y aby wyl¹dowaæ
-	 * @param bonusNumber ile jest bonusów na planszy
+	 * @param maxVx jaka jest maxymalna prÄ™dkoÅ›Ä‡ w osi x aby wylÄ…dowaÄ‡
+	 * @param maxVy jaka jest maxymalna prÄ™dkoÅ›Ä‡ w osi y aby wylÄ…dowaÄ‡
+	 * @param bonusNumber ile jest bonusÃ³w na planszy
 	 */
 	public Level(int number, double gravity, double maxVx, double maxVy, int bonusNumber)
 	{
@@ -41,7 +41,7 @@ public class Level {
 		this.gameMap = new GameMap();
 	}
 	/**
-	 * metoda wczytuj¹ca dane z pliku konfiguracyjnego
+	 * metoda wczytujÄ…ca dane z pliku konfiguracyjnego
 	 * @param filename nazwa pliku
 	 */
 	public void loadLevel(String filename)
@@ -74,7 +74,7 @@ public class Level {
         }
 	}
 	/**
-	 * metoda wczytuj¹ca dane dla obiektu gameMap klasy @class GameMap
+	 * metoda wczytujÄ…ca dane dla obiektu gameMap klasy @class GameMap
 	 * @param filename nazwa pliku z ustawieniami mapy
 	 */
 	public void loadMap(String filename)
@@ -82,7 +82,7 @@ public class Level {
 		gameMap.loadMap(filename);
 	}
 	/**
-	 * metoda pozwalaj¹ca na dostêp do obiektu gameMap klasy @class GameMap
+	 * metoda pozwalajÄ…ca na dostÄ™p do obiektu gameMap klasy @class GameMap
 	 * @return gameMap
 	 */
 	public GameMap getMap()
@@ -90,7 +90,7 @@ public class Level {
 		return gameMap;
 	}
 	/**
-	 * metoda zwracaj¹ca obiekt number, który reperezentuje numer porz¹dkowy danego poziomu
+	 * metoda zwracajÄ…ca obiekt number, ktÃ³ry reperezentuje numer porzÄ…dkowy danego poziomu
 	 * @return number
 	 */
 	public int getNumber()
@@ -98,7 +98,7 @@ public class Level {
 		return number;
 	}
 	/**
-	 * metoda zwracaj¹ca obiekt gravity, który reperezentuje przyœpieszenie
+	 * metoda zwracajÄ…ca obiekt gravity, ktÃ³ry reperezentuje przyÅ›pieszenie
 	 * @return gravity
 	 */
 	public double getGravity()
@@ -106,7 +106,7 @@ public class Level {
 		return gravity;
 	}
 	/**
-	 * metoda zwracaj¹ca maxymaln¹ prêdkoœæ w osi Y
+	 * metoda zwracajÄ…ca maxymalnÄ… prÄ™dkoÅ›Ä‡ w osi Y
 	 * @return maxVy
 	 */
 	public double getMaxVy()
@@ -114,7 +114,7 @@ public class Level {
 		return maxVy;
 	}
 	/**
-	 * metoda zwracaj¹ca maxymaln¹ prekosæ w osi X
+	 * metoda zwracajÄ…ca maxymalnÄ… prekosÄ‡ w osi X
 	 * @return maxVx
 	 */
 	public double getMaxVx()
@@ -122,7 +122,7 @@ public class Level {
 		return maxVx;
 	}
 	/**
-	 * metoda zwracaj¹ca liczbê bonusów na danym poziomie
+	 * metoda zwracajÄ…ca liczbÄ™ bonusÃ³w na danym poziomie
 	 * @return bonusNumber
 	 */
 	public int getBonusNumber()

@@ -11,8 +11,8 @@ import javax.swing.*;
 
 
 /**
- * Klasa reperezentuj¹ca g³ówne okno naszej gry
- * zawiera elementy reprezentuj¹ce preferowane i minimalne wymiary okna
+ * Klasa reperezentujÄ…ca gÅ‚Ã³wne okno naszej gry
+ * zawiera elementy reprezentujÄ…ce preferowane i minimalne wymiary okna
  * 
  * 
  */
@@ -21,7 +21,7 @@ public class LWindow extends JFrame {
 	Dimension preferredDim;
 	Dimension minDim;
 	/**
-	 * konstruktor domyœlny klasy okna inicjalizuj¹cy panel klasy LPanel
+	 * konstruktor domyÅ›lny klasy okna inicjalizujÄ…cy panel klasy LPanel
 	 */
 	public LWindow()
 	{
