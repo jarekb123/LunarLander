@@ -10,7 +10,7 @@ import java.util.Properties;
 import javax.swing.*;
 
 
-/* *
+/**
  * Klasa reperezentuj¹ca g³ówne okno naszej gry
  * zawiera elementy reprezentuj¹ce preferowane i minimalne wymiary okna
  * 
