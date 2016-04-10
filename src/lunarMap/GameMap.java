@@ -15,7 +15,7 @@ import java.util.Properties;
 
 import javax.imageio.ImageIO;
 
-public class GameMap extends Polygon {
+public class GameMap {
 	
 	private Double [] x, y; 
 	private String imgPath;
