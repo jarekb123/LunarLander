@@ -10,7 +10,7 @@ import java.util.Properties;
 
 import javax.imageio.ImageIO;
 /**
- * klasa zawieraj�ca wszelkie dane o graczu
+ * klasa zawierająca wszelkie dane o graczu
 
  */
 public class Player {
@@ -38,7 +38,7 @@ public class Player {
 		vY=0D;
 	}
 	/**
-	 * metoda zwracaj�ca nazw� gracza
+	 * metoda zwracająca nazwę gracza
 	 * @return name
 	 */
 	public String  getName()
@@ -46,7 +46,7 @@ public class Player {
 		return name;
 	}
 	/**
-	 * metoda wczytuj�ca dane z pliku konfiguracyjnego
+	 * metoda wczytująca dane z pliku konfiguracyjnego
 
 	 * @param filename nazwa pliku
 	 */
