@@ -30,7 +30,7 @@ public class LWindow extends JFrame {
 			loadProperties("window.properties");
 			
 			setPreferredSize(preferredDim);
-			//setMinimumSize(minDim);
+			setMinimumSize(minDim);
 			
 			LPanel panel = new LPanel();
 			
