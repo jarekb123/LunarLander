@@ -1,5 +1,6 @@
 package lunarMap;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
@@ -53,6 +54,18 @@ public class GameMap {
 			System.exit(0);
 			return null;
 		}
+	}
+	/** metoda rysujaca wyskalowaną mapę z grafiką
+	 * @param g2d - kontekst graficzny 2D
+	 * @param gameDimension - rozdzielczość obszaru rysowania
+	 */
+	public void paintMap(Graphics2D g2d, Dimension gameDimension)
+	{
+		g2d.drawImage(getImage(),0,0,(int)gameDimension.getWidth(),(int)gameDimension.getHeight(),null);
+		Color c = new Color(0,0,0,0);
+		g2d.setColor(c);
+		g2d.draw(returnMapPolygon(gameDimension));
+		
 	}
 	/**
 	 * metoda wczytujaca mapę z pliku konfiguracyjnego

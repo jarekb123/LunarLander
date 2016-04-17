@@ -33,9 +33,10 @@ public class LWindow extends JFrame {
 			setMinimumSize(minDim);
 			
 			LPanel panel = new LPanel();
-			
+			addKeyListener(panel);
 			add(panel);
-			
+			Thread graphicThread = new Thread(new GraphicLoop(true, panel));
+			graphicThread.start();
 			pack();
 			setVisible(true);
 

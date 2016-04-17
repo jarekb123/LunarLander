@@ -1,5 +1,7 @@
 package lunarPlayer;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -9,33 +11,35 @@ import java.io.InputStream;
 import java.util.Properties;
 
 import javax.imageio.ImageIO;
+
+import lunarGraphics.GraphicObject;
 /**
  * klasa zawierająca wszelkie dane o graczu
 
  */
-public class Player {
+public class Player extends GraphicObject{
 	private String name;
 	private int score;
-	private String imgPath;
-	private double x,y;
 	private double vX, vY;
 	private double fuelLevel;
+	private boolean isRunning;
 	public Player()
 	{
-		this.x=0.5;
-		this.y=0.05;
-		vX=0D;
-		vY=0D;
+		super(0.5, 0.15);
+		vX=0.01;
+		vY=0.01;
+		isRunning = false;
 	}
-	public Player(String name,int score,String imgPath )
+	public Player(String name,int score, String imgPath)
 	{
+		super(imgPath);
+		this.x = 0.5;
+		this.y = 0.15;
+		vX = 0.01;
+		vY = 0.01;
 		this.name=name;
 		this.score=score;
-		this.imgPath=imgPath;
-		this.x=0.5;
-		this.y=0.15;
-		vX=0D;
-		vY=0D;
+		isRunning = false;
 	}
 	/**
 	 * metoda zwracająca nazwę gracza
@@ -68,14 +72,10 @@ public class Player {
 			
 			
         } 
-        catch (FileNotFoundException e)
+        catch (IOException e)
         {
        	 e.printStackTrace();	
         } 
-        catch (IOException e) 
-        {
-       	 e.printStackTrace();
-        }
 	}
 	/** 
 	 * metoda zwracająca obrazek gracza
@@ -167,5 +167,7 @@ public class Player {
 	{
 		this.y=y;
 	}
-		
+	public void goUp() { y-=vY;	}
+	public void goDown() { y+=vY; }
+	public void stop() { isRunning = false; }
 }
