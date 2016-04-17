@@ -26,7 +26,7 @@ public class LWindow extends JFrame {
 	public LWindow()
 	{
 		super("Lunar Lander");
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 			loadProperties("window.properties");
 			
 			setPreferredSize(preferredDim);
