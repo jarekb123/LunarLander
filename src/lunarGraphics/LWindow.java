@@ -23,22 +23,23 @@ public class LWindow extends JFrame {
 	/**
 	 * konstruktor domyślny klasy okna inicjalizujący panel klasy LPanel
 	 */
+        JPanel panel;
+        LPanel canvas = new LPanel();
 	public LWindow()
 	{
-		super("Lunar Lander");
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-			loadProperties("window.properties");
-			
-			setPreferredSize(preferredDim);
-			setMinimumSize(minDim);
-			
-			LPanel panel = new LPanel();
-			addKeyListener(panel);
-			add(panel);
-			Thread graphicThread = new Thread(new GraphicLoop(true, panel));
-			graphicThread.start();
-			pack();
-			setVisible(true);
+            super("Lunar Lander");
+            panel = (JPanel)getContentPane();
+            setDefaultCloseOperation(EXIT_ON_CLOSE);
+            loadProperties("window.properties");
+            
+            setPreferredSize(preferredDim);
+            setMinimumSize(minDim);
+
+            addKeyListener(canvas);
+            panel.add(canvas);
+            
+            pack();
+            setVisible(true);
 
 	}
 	/**

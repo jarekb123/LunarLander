@@ -1,30 +1,14 @@
 package lunarGraphics;
 
+import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.FontFormatException;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.GraphicsEnvironment;
-import java.awt.Polygon;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.geom.Ellipse2D;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
-
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
+import java.awt.image.BufferStrategy;
 import javax.swing.JPanel;
 
-import lunarMap.GameMap;
 
 import lunarMap.Level;
 
@@ -35,32 +19,39 @@ import lunarPlayer.Player;
  *
  */
 @SuppressWarnings("serial")
-public class LPanel extends JPanel implements KeyListener{
+public class LPanel extends Canvas implements KeyListener{
 
 	/** Obiekt klasy @class Level która przechowuje wszystkie informacje związane z danym poziomem */
 	Level level;
 	/** Obiekt @class Player, która przechowuje wszystkie informacje związane z danym graczem */
 
 	Player player;
+        JPanel panel;
+      //  Canvas gameCanvas = new Canvas();
+        BufferStrategy bufferStrategy;
 	public LPanel()
 	{
-		setPreferredSize(new Dimension(640, 480));
+               
+                
 		level = new Level();
 		player = new Player();
 		player.loadPlayer("player.properties");
 		level.loadLevel("map.properties");
-		
+		setPreferredSize(new Dimension(640,480));
+                
+               // add(gameCanvas);
+            Thread graphicThread = new Thread(new GraphicLoop(true, this));
+            graphicThread.start();
+               
 	}
 	/**
 
 	 * metoda wywoływana za kazdym razem gdy coś się zmienia z oknem lub w oknie
 	 * @param g zmienna związana z grafiką
 	 * 	 */
-	@Override
-	protected void paintComponent(Graphics g) {
+	public void paintCanvas() {
 		// TODO Auto-generated method stub
-		super.paintComponent(g);
-		Graphics2D g2d = (Graphics2D) g;
+                Graphics2D g2d = (Graphics2D) bufferStrategy.getDrawGraphics();
 		
 		level.getMap().paintMap(g2d, getSize());
 		
@@ -76,6 +67,8 @@ public class LPanel extends JPanel implements KeyListener{
 		g2d.drawString("g: "+level.getGravity(), 0, (int)(getHeight()*0.25));
 		g2d.drawString("Fuel Level: "+player.getFuelLevel(), (int)(getWidth()-100), (int)(getHeight()*0.05));
 		g2d.drawString("Time: 0:00", (int)(getWidth()-100), (int)(getHeight()*0.1));
+                
+                bufferStrategy.show();
 	}
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -100,5 +93,27 @@ public class LPanel extends JPanel implements KeyListener{
 		
 	}
 	
+    private class GraphicLoop implements Runnable {
+
+	boolean isRunning;
+	Canvas panel;
+	public GraphicLoop(boolean isRunning, Canvas canvas)
+	{
+		this.isRunning = isRunning;
+		panel = canvas;
+	}
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+                
+                        createBufferStrategy(2);
+                        bufferStrategy = getBufferStrategy();
+		while(isRunning)
+		{
+                    paintCanvas();
+		}
+	}
+
+}
 	
 }

@@ -26,8 +26,8 @@ public class Player extends GraphicObject{
 	public Player()
 	{
 		super(0.5, 0.15);
-		vX=0.01;
-		vY=0.01;
+		vX=0.005;
+		vY=0.005;
 		isRunning = false;
 	}
 	public Player(String name,int score, String imgPath)
@@ -35,8 +35,8 @@ public class Player extends GraphicObject{
 		super(imgPath);
 		this.x = 0.5;
 		this.y = 0.15;
-		vX = 0.01;
-		vY = 0.01;
+		vX = 0.005;
+		vY = 0.005;
 		this.name=name;
 		this.score=score;
 		isRunning = false;
