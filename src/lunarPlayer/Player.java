@@ -23,8 +23,9 @@ public class Player extends GraphicObject{
 	private double vX, vY;
 	private double fuelLevel;
 	private boolean isRunning;
-	private int accelerationX;
-	private int accelerationY;
+	private int accelerationX=0;
+	private int accelerationY=0;
+	private long time=System.currentTimeMillis();
 	public Player()
 	{
 		super(0.5, 0.15);
@@ -178,5 +179,29 @@ public class Player extends GraphicObject{
 	{
 		accelerationX=0;
 		accelerationY=0;
+	}
+	public double freeFall(double gravity,long dt)
+	{
+		double toReturn=gravity*dt/1000;	
+		
+		return toReturn;
+	}
+	public void updatevX(long dt)
+	{
+		vX=accelerationX*dt/1000;
+	}
+	public void updatevY(long dt)
+	{
+		vY=accelerationY*dt/1000;
+	}
+	public void updatePlayerPosition(long dt,double gravity )
+	{
+		updatevX(dt);
+		updatevY(dt);
+		double freefall=freeFall(gravity,dt);
+		double newX=x+vX;
+		double newY=y+vY+freefall;
+		setX(newX);
+		setY(newY);
 	}
 }

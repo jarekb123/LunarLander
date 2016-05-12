@@ -31,6 +31,7 @@ public class Lunar extends Canvas implements Runnable, KeyListener
 	/** Obiekt @class Player, która przechowuje wszystkie informacje związane z danym graczem */
 
     Player player;
+    long time=System.currentTimeMillis();//TODO:jeszcze możliwe że trzeba bedzie zmienić tego miejsce
     Lunar(String propFile)
     {
         level = new Level();
@@ -185,8 +186,21 @@ public class Lunar extends Canvas implements Runnable, KeyListener
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		if(e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode()==KeyEvent.VK_DOWN)
+		if(e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode()==KeyEvent.VK_DOWN|| e.getKeyCode()==KeyEvent.VK_RIGHT|| e.getKeyCode()==KeyEvent.VK_LEFT)
 			player.stop();
+		if( e.getKeyCode()==KeyEvent.VK_ESCAPE)
+		{
+			//TODO:Pauza okienko
+		}
+	}
+	public void updateLogic()
+	{
+		
+		long currTime=System.currentTimeMillis();
+		long dt=currTime-time;
+		player.updatePlayerPosition(dt, level.getGravity());
+		this.time=currTime;
+		
 	}
 	@Override
 	public void keyTyped(KeyEvent e) {
