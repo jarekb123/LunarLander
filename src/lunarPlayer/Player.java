@@ -23,6 +23,8 @@ public class Player extends GraphicObject{
 	private double vX, vY;
 	private double fuelLevel;
 	private boolean isRunning;
+	private int accelerationX;
+	private int accelerationY;
 	public Player()
 	{
 		super(0.5, 0.15);
@@ -167,7 +169,14 @@ public class Player extends GraphicObject{
 	{
 		this.y=y;
 	}
-	public void goUp() { y-=vY;	}
-	public void goDown() { y+=vY; }
-	public void stop() { isRunning = false; }
+
+	public void goUp() { accelerationY=-1;	}
+	public void goDown() { accelerationY=1; }
+	public void goLeft(){ accelerationX= 1;}
+	public void goRight() { accelerationX=-1;}
+	public void stop() 
+	{
+		accelerationX=0;
+		accelerationY=0;
+	}
 }

@@ -1,3 +1,5 @@
+package lunarGraphics;
+
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -159,13 +161,25 @@ public class Lunar extends Canvas implements Runnable, KeyListener
     }
     @Override
 	public void keyPressed(KeyEvent e) {
-		if(e.getKeyCode() == KeyEvent.VK_UP)
+		
+    	if(e.getKeyCode() == KeyEvent.VK_UP)
 		{
 			player.goUp();
 		}
+		
 		if(e.getKeyCode() == KeyEvent.VK_DOWN)
 		{
 			player.goDown();
+		}
+		
+		if(e.getKeyCode()== KeyEvent.VK_LEFT)
+		{
+			player.goLeft();
+		}
+		
+		if(e.getKeyCode()== KeyEvent.VK_RIGHT)
+		{
+			player.goRight();
 		}
 	}
 	@Override
