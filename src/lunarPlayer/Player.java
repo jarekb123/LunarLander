@@ -25,7 +25,6 @@ public class Player extends GraphicObject{
 	private boolean isRunning;
 	private int accelerationX=0;
 	private int accelerationY=0;
-	private long time=System.currentTimeMillis();
 	public Player()
 	{
 		super(0.5, 0.15);
@@ -180,6 +179,7 @@ public class Player extends GraphicObject{
 		accelerationX=0;
 		accelerationY=0;
 	}
+	//TODO: sprawdz ułamki
 	public double freeFall(double gravity,long dt)
 	{
 		double toReturn=gravity*dt/1000;	

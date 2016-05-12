@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Graphics2D;
+import java.awt.Polygon;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
@@ -195,13 +196,21 @@ public class Lunar extends Canvas implements Runnable, KeyListener
 	}
 	public void updateLogic()
 	{
-		
 		long currTime=System.currentTimeMillis();
 		long dt=currTime-time;
 		player.updatePlayerPosition(dt, level.getGravity());
 		this.time=currTime;
-		
 	}
+	public boolean ifCrashed(Dimension gameDim)
+	{
+		//TODO:SPRAWDZ CZY DOBRE WYMIARY
+		Polygon p=level.getMap().returnMapPolygon(gameDim);
+		if(p.intersects(player.getX(), player.getY(), 0.1*gameDim.getHeight(), 0.1*gameDim.getWidth()))
+			return true;
+		else 
+			return false;
+	}
+
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
