@@ -187,7 +187,8 @@ public class Lunar extends Canvas implements Runnable, KeyListener
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		if(e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode()==KeyEvent.VK_DOWN|| e.getKeyCode()==KeyEvent.VK_RIGHT|| e.getKeyCode()==KeyEvent.VK_LEFT)
+		if(e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode()==KeyEvent.VK_DOWN 
+				|| e.getKeyCode()==KeyEvent.VK_RIGHT|| e.getKeyCode()==KeyEvent.VK_LEFT)
 			player.stop();
 		if( e.getKeyCode()==KeyEvent.VK_ESCAPE)
 		{
@@ -205,11 +206,13 @@ public class Lunar extends Canvas implements Runnable, KeyListener
 	{
 		//TODO:SPRAWDZ CZY DOBRE WYMIARY
 		Polygon p=level.getMap().returnMapPolygon(gameDim);
-		if(p.intersects(player.getX(), player.getY(), 0.1*gameDim.getHeight(), 0.1*gameDim.getWidth()))
+		if(p.intersects(player.getX(), player.getY(), 0.1*gameDim.getHeight(), 0.1*gameDim.getWidth())
+				||player.getX()==1||player.getY()==1||player.getX()==0||player.getY()==0)
 			return true;
 		else 
 			return false;
 	}
+
 
 	@Override
 	public void keyTyped(KeyEvent e) {

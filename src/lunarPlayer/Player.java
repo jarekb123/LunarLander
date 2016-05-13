@@ -204,4 +204,5 @@ public class Player extends GraphicObject{
 		setX(newX);
 		setY(newY);
 	}
+	
 }
