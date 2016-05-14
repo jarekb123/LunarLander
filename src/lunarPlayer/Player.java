@@ -1,5 +1,8 @@
 package lunarPlayer;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
@@ -170,4 +173,19 @@ public class Player extends GraphicObject{
 	public void goUp() { y-=vY;	}
 	public void goDown() { y+=vY; }
 	public void stop() { isRunning = false; }
+
+    @Override
+    public void paintImage(Graphics2D g2d, Dimension size, Dimension preferredSize) {
+        double scaleX = (double)size.width/(double)preferredSize.getWidth();
+	double scaleY = (double)size.height/(double)preferredSize.getHeight();
+        g2d.drawImage(getImage(), (int)(getX()*size.width),(int)(getY()*size.height) ,(int)(getImage().getWidth()*scaleX),(int)(getImage().getHeight()*scaleY),null);
+	g2d.setColor(Color.white);
+	g2d.drawString("x: "+getX()*640, 0, (int)(size.height*0.05));
+	g2d.drawString("y: "+getY()*480, 0, (int)(size.height*0.1));
+	g2d.drawString("vX: "+getvX()*640, 0, (int)(size.height*0.15));
+	g2d.drawString("vY: "+getvY()*480, 0, (int)(size.height*0.2));
+	//g2d.drawString("g: "+level.getGravity(), 0, (int)(size.height*0.25));
+	g2d.drawString("Fuel Level: "+getFuelLevel(), (int)(size.width-100), (int)(size.height*0.05));
+	g2d.drawString("Time: 0:00", (int)(size.width-100), (int)(size.height*0.1));
+    }
 }

@@ -1,11 +1,14 @@
-import java.awt.Canvas;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
@@ -17,24 +20,41 @@ import java.util.Properties;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import lunarGraphics.Scene;
-import lunarMap.Level;
-import lunarPlayer.Player;
-
-public class Lunar extends JPanel implements Runnable//, KeyListener
+import lunarGraphics.scenes.GameScene;
+import lunarGraphics.scenes.*;
+public class Lunar extends JPanel implements Runnable, KeyListener, MouseListener, MouseMotionListener
 {
     
     Dimension minDim, preferredDim;
     BufferStrategy bs;
     Thread thread;
     Scene scene;
-     Lunar(String propFile)
+    GameScene gameScene;
+
+
+
+ 
+
+    private enum GameState
     {
-        scene = new Scene();
+        Play, Pause
+    }
+    GameState state;
+    
+    Lunar(String propFile)
+    {
+        state = GameState.Play;
+        scene = null;
+        
         loadProperties(propFile);
         setPreferredSize(preferredDim);
         setMinimumSize(minDim);
-        //addKeyListener(this);
+        addKeyListener(this);
+        gameScene = new GameScene(getSize(), preferredDim);
+        grabFocus();
+        initScene(state);
+        addMouseListener(this);
+        addMouseMotionListener(this);
     }
 //    @Override
 //    public void addNotify()
@@ -44,10 +64,18 @@ public class Lunar extends JPanel implements Runnable//, KeyListener
 //        bs = getBufferStrategy();
 //        
 //    }
+   
+    private void initScene(GameState gs)
+    {
+        if(gs == GameState.Play)
+            scene = gameScene;
+        else if(gs == GameState.Pause)
+            scene = new PauseScene(getSize(), preferredDim);
+    } 
     @Override
     public void paintComponent(Graphics g)
     {
-        scene.updateScene((Graphics2D)g, getSize(), getPreferredSize());
+        scene.updateScene((Graphics2D)g);
     }
     @Override
     public void run() {
@@ -101,7 +129,9 @@ public class Lunar extends JPanel implements Runnable//, KeyListener
         final Lunar lunar = new Lunar("window.properties");
         
         JFrame frame = new JFrame("Lunar v2");
-        
+        frame.addKeyListener(lunar);
+        frame.addMouseListener(lunar.getMouseListeners()[0]);
+        frame.addMouseMotionListener(lunar);
         frame.addWindowListener(new WindowAdapter() {
 
             public void windowIconified(WindowEvent we) {
@@ -120,6 +150,24 @@ public class Lunar extends JPanel implements Runnable//, KeyListener
             	System.exit(1);
             }
         });
+        frame.addComponentListener(new ComponentListener() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                lunar.scene.resized(lunar.getSize());
+            }
+
+            @Override
+            public void componentMoved(ComponentEvent e) {
+            }
+
+            @Override
+            public void componentShown(ComponentEvent e) {
+            }
+
+            @Override
+            public void componentHidden(ComponentEvent e) {
+            }
+        });
         frame.add(lunar);
         frame.pack();
         EventQueue.invokeLater(new Runnable() {
@@ -130,26 +178,63 @@ public class Lunar extends JPanel implements Runnable//, KeyListener
         });
         (lunar.thread = new Thread(lunar)).start();
     }
-//    @Override
-//	public void keyPressed(KeyEvent e) {
-//		if(e.getKeyCode() == KeyEvent.VK_UP)
-//		{
-//			player.goUp();
-//		}
-//		if(e.getKeyCode() == KeyEvent.VK_DOWN)
-//		{
-//			player.goDown();
-//		}
-//	}
-//	@Override
-//	public void keyReleased(KeyEvent e) {
-//		// TODO Auto-generated method stub
-//		if(e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode()==KeyEvent.VK_DOWN)
-//			player.stop();
-//	}
-//	@Override
-//	public void keyTyped(KeyEvent e) {
-//		// TODO Auto-generated method stub
-//		
-//	}
+       @Override
+    public void keyTyped(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_ESCAPE)
+            initScene(GameState.Pause);
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_ESCAPE)
+        {
+            if(state == GameState.Play)
+                initScene(state = GameState.Pause);
+            else if(state == GameState.Pause)
+                initScene(state = GameState.Play);
+        }
+    }
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        if(scene != null)
+            scene.mouseClicked(e);
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        if(scene != null)
+            scene.mousePressed(e);
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        if(scene != null)
+            scene.mouseReleased(e);
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        if(scene != null)
+            scene.mouseEntered(e);
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        if(scene != null)
+            scene.mouseExited(e);
+    }
+    @Override
+    public void mouseDragged(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        if(scene!=null)
+            scene.mouseMoved(e);
+    }
 }
