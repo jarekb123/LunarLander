@@ -180,20 +180,26 @@ public class Player extends GraphicObject{
 		accelerationY=0;
 	}
 	//TODO: sprawdz ułamki
+	
+	//metoda realizująca swobodny spadek z przyspieszeniem gravity i przez czas dt
+	//zwrana jest prędkość jaką zyskał ten obiekt 
 	public double freeFall(double gravity,long dt)
 	{
 		double toReturn=gravity*dt/1000;	
 		
 		return toReturn;
 	}
+	//metoda zwiększajaca vX o przyśpieszenie accelerationX przez czas dt
 	public void updatevX(long dt)
 	{
 		vX=accelerationX*dt/1000;
 	}
+	//metoda zwiekszająca vX o przyśpieszenie accelerationY przez czas dt
 	public void updatevY(long dt)
 	{
 		vY=accelerationY*dt/1000;
 	}
+	//metoda zmieniająca pozycję playera przez dany odstęp czasowy dt
 	public void updatePlayerPosition(long dt,double gravity )
 	{
 		updatevX(dt);

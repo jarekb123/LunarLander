@@ -24,7 +24,11 @@ import lunarPlayer.Player;
 public class Lunar extends Canvas implements Runnable, KeyListener
 {
     
-    Dimension minDim, preferredDim;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	Dimension minDim, preferredDim;
     BufferStrategy bs;
     Thread thread;
     /** Obiekt klasy @class Level która przechowuje wszystkie informacje związane z danym poziomem */
@@ -184,6 +188,7 @@ public class Lunar extends Canvas implements Runnable, KeyListener
 			player.goRight();
 		}
 	}
+    //jak przyciski są zwalniane to trzeba przestać zmieniać prękość w kazdej z osi
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
@@ -195,6 +200,7 @@ public class Lunar extends Canvas implements Runnable, KeyListener
 			//TODO:Pauza okienko
 		}
 	}
+	//metoda zmieniajaca dane o pozycje playera 
 	public void updateLogic()
 	{
 		long currTime=System.currentTimeMillis();
@@ -202,6 +208,8 @@ public class Lunar extends Canvas implements Runnable, KeyListener
 		player.updatePlayerPosition(dt, level.getGravity());
 		this.time=currTime;
 	}
+	//metoda sprawdzajaca czy rakieta nie przecina się z podłożem(Polygon) i z krańcami 
+	//ekranu,czyli że statek nie wyleciał poza ekran
 	public boolean ifCrashed(Dimension gameDim)
 	{
 		//TODO:SPRAWDZ CZY DOBRE WYMIARY
@@ -212,10 +220,8 @@ public class Lunar extends Canvas implements Runnable, KeyListener
 		else 
 			return false;
 	}
-
-
 	@Override
-	public void keyTyped(KeyEvent e) {
+	public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
