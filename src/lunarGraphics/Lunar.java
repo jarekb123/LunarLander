@@ -1,3 +1,5 @@
+package lunarGraphics;
+
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Graphics;
@@ -30,6 +32,7 @@ public class Lunar extends JPanel implements Runnable, KeyListener, MouseListene
     Thread thread;
     Scene scene;
     GameScene gameScene;
+    long time=System.currentTimeMillis();
 
 
 
@@ -45,7 +48,7 @@ public class Lunar extends JPanel implements Runnable, KeyListener, MouseListene
     {
         state = GameState.Play;
         scene = null;
-        
+  
         loadProperties(propFile);
         setPreferredSize(preferredDim);
         setMinimumSize(minDim);
@@ -79,13 +82,22 @@ public class Lunar extends JPanel implements Runnable, KeyListener, MouseListene
     }
     @Override
     public void run() {
-        while (thread == Thread.currentThread()) {
+        long currTime;
+        long dt;
+        time=System.currentTimeMillis();
+    	while (thread == Thread.currentThread()) {
     	    // Prepare for rendering the next frame
             //modifyLocation();
             // Render single frame
             while(true)
             {
-                repaint();
+                currTime=System.currentTimeMillis();
+                dt=currTime-time;
+            	scene.updateLogic(dt);
+            	time=currTime;
+            	repaint();
+                
+               
             
             try {
                 Thread.sleep(10);
@@ -95,6 +107,7 @@ public class Lunar extends JPanel implements Runnable, KeyListener, MouseListene
             }
     	 }
     }
+    
     private void loadProperties(String filename)
 	{
 		try 
@@ -174,6 +187,7 @@ public class Lunar extends JPanel implements Runnable, KeyListener, MouseListene
             @Override
             public void run() {
                 frame.setVisible(true);
+               
             }
         });
         (lunar.thread = new Thread(lunar)).start();
@@ -185,8 +199,9 @@ public class Lunar extends JPanel implements Runnable, KeyListener, MouseListene
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-        
+    public void keyPressed(KeyEvent e)
+    {
+       scene.keyPressed(e); 
     }
 
     @Override
@@ -196,8 +211,9 @@ public class Lunar extends JPanel implements Runnable, KeyListener, MouseListene
             if(state == GameState.Play)
                 initScene(state = GameState.Pause);
             else if(state == GameState.Pause)
-                initScene(state = GameState.Play);
+                initScene(state = GameState.Play);    
         }
+        else scene.keyReleased(e);
     }
     @Override
     public void mouseClicked(MouseEvent e) {

@@ -1,6 +1,8 @@
 package lunarGraphics.scenes;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -11,7 +13,7 @@ import lunarGraphics.GraphicObject;
  *
  * @author jarek
  */
-public abstract class Scene implements MouseListener, MouseMotionListener
+public abstract class Scene implements MouseListener, MouseMotionListener, KeyListener
 {
     /**  Kontekst graficzny */
     Graphics2D g2d; 
@@ -21,6 +23,7 @@ public abstract class Scene implements MouseListener, MouseMotionListener
     ArrayList<GraphicObject> graphicObjects;
     Dimension size;
     Dimension preferredSize;
+    
     public Scene(Dimension size, Dimension preferredSize)
     {
         this.preferredSize = preferredSize;
@@ -67,5 +70,6 @@ public abstract class Scene implements MouseListener, MouseMotionListener
     @Override
     public void mouseMoved(MouseEvent e) {
     }
-
+   // public abstract void updateLogic();
+    public abstract void updateLogic(long dt);
 }
