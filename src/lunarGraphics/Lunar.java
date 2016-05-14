@@ -1,10 +1,14 @@
-import java.awt.Canvas;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
@@ -15,55 +19,63 @@ import java.io.InputStream;
 import java.util.Properties;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
-import lunarMap.Level;
-import lunarPlayer.Player;
-
-public class Lunar extends Canvas implements Runnable, KeyListener
+import javax.swing.JPanel;
+import lunarGraphics.scenes.GameScene;
+import lunarGraphics.scenes.*;
+public class Lunar extends JPanel implements Runnable, KeyListener, MouseListener, MouseMotionListener
 {
     
     Dimension minDim, preferredDim;
     BufferStrategy bs;
     Thread thread;
-    /** Obiekt klasy @class Level która przechowuje wszystkie informacje związane z danym poziomem */
-    Level level;
-	/** Obiekt @class Player, która przechowuje wszystkie informacje związane z danym graczem */
+    Scene scene;
+    GameScene gameScene;
 
-    Player player;
+
+
+ 
+
+    private enum GameState
+    {
+        Play, Pause
+    }
+    GameState state;
+    
     Lunar(String propFile)
     {
-        level = new Level();
-        level.loadLevel("map.properties");
-        player = new Player();
-        player.loadPlayer("player.properties");
+        state = GameState.Play;
+        scene = null;
+        
         loadProperties(propFile);
         setPreferredSize(preferredDim);
         setMinimumSize(minDim);
         addKeyListener(this);
+        gameScene = new GameScene(getSize(), preferredDim);
+        grabFocus();
+        initScene(state);
+        addMouseListener(this);
+        addMouseMotionListener(this);
     }
+//    @Override
+//    public void addNotify()
+//    {
+//        super.addNotify();
+//        createBufferStrategy(2);
+//        bs = getBufferStrategy();
+//        
+//    }
+   
+    private void initScene(GameState gs)
+    {
+        if(gs == GameState.Play)
+            scene = gameScene;
+        else if(gs == GameState.Pause)
+            scene = new PauseScene(getSize(), preferredDim);
+    } 
     @Override
-    public void addNotify()
+    public void paintComponent(Graphics g)
     {
-        super.addNotify();
-        createBufferStrategy(2);
-        bs = getBufferStrategy();
-        
-    }
-    private void updateGraphics(Graphics2D g2d)
-    {
-        level.getMap().paintMap(g2d, getSize());
-		
-	double scaleX = (double)getWidth()/(double)getPreferredSize().getWidth();
-	double scaleY = (double)getHeight()/(double)getPreferredSize().getHeight();
-	
-	g2d.drawImage(player.getImage(), (int)(player.getX()*getWidth()),(int)(player.getY()*getHeight()) ,(int)(player.getImage().getWidth()*scaleX),(int)(player.getImage().getHeight()*scaleY),null);
-	g2d.setColor(Color.white);
-	g2d.drawString("x: "+player.getX()*640, 0, (int)(getHeight()*0.05));
-	g2d.drawString("y: "+player.getY()*480, 0, (int)(getHeight()*0.1));
-	g2d.drawString("vX: "+player.getvX()*640, 0, (int)(getHeight()*0.15));
-	g2d.drawString("vY: "+player.getvY()*480, 0, (int)(getHeight()*0.2));
-	g2d.drawString("g: "+level.getGravity(), 0, (int)(getHeight()*0.25));
-	g2d.drawString("Fuel Level: "+player.getFuelLevel(), (int)(getWidth()-100), (int)(getHeight()*0.05));
-	g2d.drawString("Time: 0:00", (int)(getWidth()-100), (int)(getHeight()*0.1));
+        scene.updateScene((Graphics2D)g);
     }
     @Override
     public void run() {
@@ -71,26 +83,15 @@ public class Lunar extends Canvas implements Runnable, KeyListener
     	    // Prepare for rendering the next frame
             //modifyLocation();
             // Render single frame
-            do {
-            	// The following loop ensures that the contents of the drawing buffer
-            	// are consistent in case the underlying surface was recreated
-            	do {
-            		// Get a new graphics context every time through the loop
-            		// to make sure the strategy is validated
-            		Graphics2D graphics = (Graphics2D)bs.getDrawGraphics();
-            		updateGraphics(graphics);// Render to graphics
-            		graphics.dispose(); // Dispose the graphics
-
-            		// Repeat the rendering if the drawing buffer contents were restored
-    	         } while (bs.contentsRestored());
-            	// Display the buffer
-            	bs.show();
-            	// Repeat the rendering if the drawing buffer was lost
-	     	} while (bs.contentsLost());
+            while(true)
+            {
+                repaint();
+            
             try {
                 Thread.sleep(10);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Lunar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            }
             }
     	 }
     }
@@ -128,7 +129,9 @@ public class Lunar extends Canvas implements Runnable, KeyListener
         final Lunar lunar = new Lunar("window.properties");
         
         JFrame frame = new JFrame("Lunar v2");
-        
+        frame.addKeyListener(lunar);
+        frame.addMouseListener(lunar.getMouseListeners()[0]);
+        frame.addMouseMotionListener(lunar);
         frame.addWindowListener(new WindowAdapter() {
 
             public void windowIconified(WindowEvent we) {
@@ -147,6 +150,24 @@ public class Lunar extends Canvas implements Runnable, KeyListener
             	System.exit(1);
             }
         });
+        frame.addComponentListener(new ComponentListener() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                lunar.scene.resized(lunar.getSize());
+            }
+
+            @Override
+            public void componentMoved(ComponentEvent e) {
+            }
+
+            @Override
+            public void componentShown(ComponentEvent e) {
+            }
+
+            @Override
+            public void componentHidden(ComponentEvent e) {
+            }
+        });
         frame.add(lunar);
         frame.pack();
         EventQueue.invokeLater(new Runnable() {
@@ -157,26 +178,63 @@ public class Lunar extends Canvas implements Runnable, KeyListener
         });
         (lunar.thread = new Thread(lunar)).start();
     }
+       @Override
+    public void keyTyped(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_ESCAPE)
+            initScene(GameState.Pause);
+    }
+
     @Override
-	public void keyPressed(KeyEvent e) {
-		if(e.getKeyCode() == KeyEvent.VK_UP)
-		{
-			player.goUp();
-		}
-		if(e.getKeyCode() == KeyEvent.VK_DOWN)
-		{
-			player.goDown();
-		}
-	}
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		if(e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode()==KeyEvent.VK_DOWN)
-			player.stop();
-	}
-	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+    public void keyPressed(KeyEvent e) {
+        
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_ESCAPE)
+        {
+            if(state == GameState.Play)
+                initScene(state = GameState.Pause);
+            else if(state == GameState.Pause)
+                initScene(state = GameState.Play);
+        }
+    }
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        if(scene != null)
+            scene.mouseClicked(e);
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        if(scene != null)
+            scene.mousePressed(e);
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        if(scene != null)
+            scene.mouseReleased(e);
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        if(scene != null)
+            scene.mouseEntered(e);
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        if(scene != null)
+            scene.mouseExited(e);
+    }
+    @Override
+    public void mouseDragged(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        if(scene!=null)
+            scene.mouseMoved(e);
+    }
 }
