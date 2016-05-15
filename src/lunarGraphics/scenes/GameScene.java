@@ -26,7 +26,7 @@ public class GameScene extends Scene
     {
         super(parent, size, preferredSize);
         level = new Level();
-        level.loadLevel("map.properties");
+        level.loadLevel("map2.properties");
         
         player = new Player();
         player.loadPlayer("player.properties");
