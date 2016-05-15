@@ -21,6 +21,15 @@ public class GraphicButton extends GraphicObject implements ImageObserver
     Image img = null;
     Image imgMouseOn = null;
     boolean isMouseOn;
+    boolean isActive = true;
+    String action;
+
+    /**
+         * Konstruktor ze ścieżką do pliku graficznego i współrzędnymi
+         * @param imgPath ścieżka do pliku graficznego
+         * @param x wsp. x
+         * @param y wsp. y
+         */
     public GraphicButton(String imgPath, double x, double y) {
         super(imgPath, x, y);
         new Thread(new Runnable() {
@@ -34,6 +43,14 @@ public class GraphicButton extends GraphicObject implements ImageObserver
         
         
     }
+
+    /**
+         * Konstruktor ze ścieżką do pliku graficznego i współrzędnymi
+         * @param imgPath ścieżka do pliku graficznego
+         * @param imgMouseOnPath ścieżka do pliku graficznego, który pokaże się po najechaniu na przycisk myszką
+         * @param x wsp. x
+         * @param y wsp. y
+         */
     public GraphicButton(String imgPath, String imgMouseOnPath, double x, double y)
     {
         super(imgPath, x, y);
@@ -47,11 +64,28 @@ public class GraphicButton extends GraphicObject implements ImageObserver
         loadMouseOnImage(imgMouseOnPath).start();
     }
     
+    /**
+     * Ustawianie nazwy akcji, którą wykonuje przycisk
+     * @param a nazwa akcji
+     */
+    public void setAction(String a)
+    {
+        action = a;
+    }
 
+    /**
+     * Pobiera nazwę akcji
+     * @return nazwa akcji
+     */
+    public String getAction()
+    {
+        return action;
+    }
+    
     @Override
     public void paintImage(Graphics2D g2d, Dimension size, Dimension preferredSize) {
         Image img1 = null;
-        if(isMouseOn && imgMouseOn != null)
+        if(isMouseOn && imgMouseOn != null && isActive)
         {
             img1 = imgMouseOn;
         }
@@ -66,8 +100,16 @@ public class GraphicButton extends GraphicObject implements ImageObserver
             int xx = (int)(x*size.width) - width/2;
             int yy = (int)(y*size.height) - height/2;
             g2d.drawImage(img1, xx, yy, width, height, this);      
+            
         }
     }
+
+    /**
+     * Metoda obliczająca prostokąt przycisku 
+     * @param sceneSize Rozmiar sceny
+     * @param preferredSize Preferowany rozmiar sceny
+     * @return prostokąt, w którym znajduje się przycisk
+     */
     public Rectangle getButtonRect(Dimension sceneSize, Dimension preferredSize)
     {
         int scaleX = sceneSize.width/preferredSize.width;
@@ -79,6 +121,12 @@ public class GraphicButton extends GraphicObject implements ImageObserver
         int yy = (int)(y*sceneSize.height) - height/2;
         return new Rectangle(xx, yy, width, height);
     }
+
+    /**
+     * Metoda - Wątek ładujący obrazek, który pokazuje się po najechaniu myszką
+     * @param imgPath ścieżka do pliku graficznego
+     * @return wątek
+     */
     public Thread loadMouseOnImage(String imgPath)
     {
         return new Thread(new Runnable() {
@@ -89,6 +137,10 @@ public class GraphicButton extends GraphicObject implements ImageObserver
             }
         });
     }
+
+    /**
+     *
+     */
     public void mouseEntered()
     {
         isMouseOn = true;
@@ -97,6 +149,15 @@ public class GraphicButton extends GraphicObject implements ImageObserver
     public void mouseExited()
     {
         isMouseOn = false;
+    }
+
+    /**
+     * Deaktywacja przycisku
+     */
+    public void deactive()
+    {
+        isActive = false;
+        imgMouseOn = null;
     }
     @Override
     public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
