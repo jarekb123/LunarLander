@@ -128,8 +128,11 @@ public class LPanel extends JPanel implements Runnable, KeyListener, MouseListen
 >>>>>>> master
     public void initScene(GameState gs)
     {
-        if(gs == GameState.Play)
-            scene = gameScene;
+       // if(gs == GameState.Menu)
+        //    scene = new MenuScene(this,getSize(),preferredDim);
+        //else 
+        	if(gs== GameState.Play)
+        	scene=gameScene;
         else if(gs == GameState.Pause)
             scene = new PauseScene(this, getSize(), preferredDim);
 <<<<<<< HEAD
