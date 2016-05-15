@@ -23,7 +23,7 @@ public class GraphicButton extends GraphicObject implements ImageObserver
     boolean isMouseOn;
     boolean isActive = true;
     String action;
-<<<<<<< HEAD
+
 
     /**
          * Konstruktor ze ścieżką do pliku graficznego i współrzędnymi
@@ -31,8 +31,8 @@ public class GraphicButton extends GraphicObject implements ImageObserver
          * @param x wsp. x
          * @param y wsp. y
          */
-=======
->>>>>>> master
+
+
     public GraphicButton(String imgPath, double x, double y) {
         super(imgPath, x, y);
         new Thread(new Runnable() {
@@ -67,25 +67,25 @@ public class GraphicButton extends GraphicObject implements ImageObserver
         loadMouseOnImage(imgMouseOnPath).start();
     }
     
-<<<<<<< HEAD
+
     /**
      * Ustawianie nazwy akcji, którą wykonuje przycisk
      * @param a nazwa akcji
      */
-=======
->>>>>>> master
+
+
     public void setAction(String a)
     {
         action = a;
     }
-<<<<<<< HEAD
+
 
     /**
      * Pobiera nazwę akcji
      * @return nazwa akcji
      */
-=======
->>>>>>> master
+
+
     public String getAction()
     {
         return action;
@@ -159,13 +159,13 @@ public class GraphicButton extends GraphicObject implements ImageObserver
     {
         isMouseOn = false;
     }
-<<<<<<< HEAD
+
 
     /**
      * Deaktywacja przycisku
+     *
      */
-=======
->>>>>>> master
+
     public void deactive()
     {
         isActive = false;
