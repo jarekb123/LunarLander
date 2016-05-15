@@ -13,7 +13,8 @@ import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import lunarGraphics.GraphicButton;
-import lunarGraphics.GraphicObject;
+import lunarGraphics.LPanel;
+import lunarGraphics.LPanel.GameState;
 
 /**
  *
@@ -21,11 +22,23 @@ import lunarGraphics.GraphicObject;
  */
 public class PauseScene extends Scene {
 
-    public PauseScene(Dimension size, Dimension preferredSize)
+    
+    
+    public PauseScene(LPanel parent, Dimension size, Dimension preferredSize)
     {
-        super(size, preferredSize);
-        GraphicButton startBtn = new GraphicButton("img/menu/start.png", "img/menu/start_onmouse.png", 0.5, 0.5);
-        graphicObjects.add(startBtn);
+        super(parent, size, preferredSize);
+        
+        GraphicButton resumeBtn = new GraphicButton("img/menu/dalej.png", "img/menu/dalej_onmouse.png", 0.5, 0.3);
+        resumeBtn.setAction("resume");
+        GraphicButton settingsBtn = new GraphicButton("img/menu/settings.png", "img/menu/settings_onmouse.png", 0.5, 0.45);
+        settingsBtn.setAction("settings");
+        GraphicButton exitBtn = new GraphicButton("img/menu/koniec.png", "img/menu/koniec_onmouse.png", 0.5, 0.6);
+        exitBtn.setAction("exit");
+        GraphicButton title = new GraphicButton("img/menu/pauza.png", 0.5, 0.1);
+        graphicObjects.add(title);
+        graphicObjects.add(resumeBtn);
+        graphicObjects.add(settingsBtn);
+        graphicObjects.add(exitBtn);
     }
     @Override
     public void updateScene(Graphics2D g2d) 
@@ -38,6 +51,15 @@ public class PauseScene extends Scene {
         {
             graphicObjects.get(i).paintImage(g2d, size, preferredSize);
         }
+    }
+    public void resume()
+    {
+        parentPanel.setState(GameState.Play);
+        parentPanel.initScene(GameState.Play);
+    }
+    public void exit()
+    {
+        System.exit(2);
     }
     @Override
     public void mouseMoved(MouseEvent e)
@@ -60,6 +82,40 @@ public class PauseScene extends Scene {
             }
         }
     }
+    @Override
+    public void mouseClicked(MouseEvent e)
+    {
+        Point p = e.getPoint();
+        boolean clicked = false;
+        for(int i = 0; i<graphicObjects.size() && !clicked; i++)
+        {
+            if(graphicObjects.get(i) instanceof GraphicButton)
+            {
+               GraphicButton gBtn = (GraphicButton)graphicObjects.get(i);
+               Rectangle rect = gBtn.getButtonRect(size, preferredSize);
+               if(rect.contains(p))
+               {
+                   clicked = true;
+                   String btnAction = gBtn.getAction();
+                   switch(btnAction)
+                   {
+                       
+                       case "resume":
+                           resume();
+                           break;
+                       case "exit":
+                           exit();
+                           break;
+                       default:
+                           break;
+                           
+                   }
+               }
+               
+            }
+        }
+    }
+        
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub

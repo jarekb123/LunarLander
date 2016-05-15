@@ -8,6 +8,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import lunarGraphics.GraphicObject;
+import lunarGraphics.LPanel;
 
 /**
  *
@@ -23,11 +24,12 @@ public abstract class Scene implements MouseListener, MouseMotionListener, KeyLi
     ArrayList<GraphicObject> graphicObjects;
     Dimension size;
     Dimension preferredSize;
-    
-    public Scene(Dimension size, Dimension preferredSize)
+    LPanel parentPanel;
+    public Scene(LPanel parent, Dimension size, Dimension preferredSize)
     {
         this.preferredSize = preferredSize;
         this.size = size;
+        parentPanel = parent;
         graphicObjects = new ArrayList<>();      
     }
     /** Abstrakcyjna metoda, której implementacja wykonuje rysowanie obiektów na kontekście graficznym

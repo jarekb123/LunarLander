@@ -7,6 +7,7 @@ package lunarGraphics.scenes;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import lunarGraphics.LPanel;
 
 import lunarMap.Level;
 import lunarPlayer.Player;
@@ -21,9 +22,9 @@ public class GameScene extends Scene
     Level level;
    /** Obiekt @class Player, która przechowuje wszystkie informacje związane z danym graczem */
     Player player;
-    public GameScene(Dimension size, Dimension preferredSize)
+    public GameScene(LPanel parent, Dimension size, Dimension preferredSize)
     {
-        super(size, preferredSize);
+        super(parent, size, preferredSize);
         level = new Level();
         level.loadLevel("map.properties");
         

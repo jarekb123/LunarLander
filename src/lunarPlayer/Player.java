@@ -24,7 +24,7 @@ public class Player extends GraphicObject{
 	private String name;
 	private int score;
 	private double vX, vY;
-	private double fuelLevel;
+	private double fuelLevel, maxFuelLevel;
 	private boolean isRunning;
 	private int accelerationY;
 	private int accelerationX;
@@ -73,7 +73,7 @@ public class Player extends GraphicObject{
 			name=properties.getProperty("name");
 			imgPath = properties.getProperty("imgPath");
 			score=Integer.parseInt(properties.getProperty("score"));
-			fuelLevel=Double.parseDouble(properties.getProperty("fuelLevel"));
+			maxFuelLevel=fuelLevel=Double.parseDouble(properties.getProperty("fuelLevel"));
 			
 			
         } 
@@ -226,12 +226,14 @@ public class Player extends GraphicObject{
 	double scaleY = (double)size.height/(double)preferredSize.getHeight();
         g2d.drawImage(getImage(), (int)(getX()*size.width),(int)(getY()*size.height) ,(int)(getImage().getWidth()*scaleX),(int)(getImage().getHeight()*scaleY),null);
 	g2d.setColor(Color.white);
-	g2d.drawString("x: "+(int)getX()*640, 0, (int)(size.height*0.05));
-	g2d.drawString("y: "+(int)getY()*480, 0, (int)(size.height*0.1));
-	g2d.drawString("vX: "+(int)getvX()*640, 0, (int)(size.height*0.15));
-	g2d.drawString("vY: "+(int)getvY()*480, 0, (int)(size.height*0.2));
+	g2d.drawString("x: "+(int)(getX()*preferredSize.width), 0, (int)(size.height*0.05));
+	g2d.drawString("y: "+(int)(getY()*preferredSize.height), 0, (int)(size.height*0.1));
+	g2d.drawString("vX: "+(int)getvX(), 0, (int)(size.height*0.15));
+	g2d.drawString("vY: "+(int)getvY(), 0, (int)(size.height*0.2));
 	//g2d.drawString("g: "+level.getGravity(), 0, (int)(size.height*0.25));
-	g2d.drawString("Fuel Level: "+(int)getFuelLevel(), (int)(size.width-100), (int)(size.height*0.05));
-	g2d.drawString("Time: 0:00", (int)(size.width-100), (int)(size.height*0.1));
+	g2d.drawString("Fuel", (int)(size.width-100), (int)(size.height*0.05));
+        
+        g2d.fillRect((int)(size.width-100), (int)(size.height*0.05), (int)(fuelLevel*100/maxFuelLevel), (int)(scaleY*10));
+	g2d.drawString("Time: 0:00", (int)(size.width-100), (int)(size.height*0.15));
     }
 }

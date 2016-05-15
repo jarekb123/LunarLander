@@ -21,6 +21,8 @@ public class GraphicButton extends GraphicObject implements ImageObserver
     Image img = null;
     Image imgMouseOn = null;
     boolean isMouseOn;
+    boolean isActive = true;
+    String action;
     public GraphicButton(String imgPath, double x, double y) {
         super(imgPath, x, y);
         new Thread(new Runnable() {
@@ -47,11 +49,19 @@ public class GraphicButton extends GraphicObject implements ImageObserver
         loadMouseOnImage(imgMouseOnPath).start();
     }
     
-
+    public void setAction(String a)
+    {
+        action = a;
+    }
+    public String getAction()
+    {
+        return action;
+    }
+    
     @Override
     public void paintImage(Graphics2D g2d, Dimension size, Dimension preferredSize) {
         Image img1 = null;
-        if(isMouseOn && imgMouseOn != null)
+        if(isMouseOn && imgMouseOn != null && isActive)
         {
             img1 = imgMouseOn;
         }
@@ -97,6 +107,11 @@ public class GraphicButton extends GraphicObject implements ImageObserver
     public void mouseExited()
     {
         isMouseOn = false;
+    }
+    public void deactive()
+    {
+        isActive = false;
+        imgMouseOn = null;
     }
     @Override
     public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
