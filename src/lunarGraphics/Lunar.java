@@ -10,14 +10,14 @@ package lunarGraphics;
  * @author jarek
  */
 public class Lunar {
-<<<<<<< HEAD
+
 
     /**
      *
      * @param args
      */
-=======
->>>>>>> master
+
+
     public static void main(String[] args)
     {
         LPanel panel = new LPanel("window.properties");

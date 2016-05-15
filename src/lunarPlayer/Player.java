@@ -28,12 +28,12 @@ public class Player extends GraphicObject{
 	private boolean isRunning;
 	private int accelerationY;
 	private int accelerationX;
-<<<<<<< HEAD
+
         /** 
          * Domyślny konstruktor @class Player
          */
-=======
->>>>>>> master
+
+
 	public Player()
 	{
 		super(0.5, 0.15);
@@ -184,7 +184,7 @@ public class Player extends GraphicObject{
 	{
 		this.y=y;
 	}
-<<<<<<< HEAD
+
         
         /**
          * Metoda włączająca ruch wymuszony gracza w górę
@@ -209,31 +209,24 @@ public class Player extends GraphicObject{
         /**
          * Metoda wyłączająca ruch wymuszony gracza
          */
-=======
-
-	public void goUp() { accelerationY=-1;	}
-	public void goDown() { accelerationY=1; }
-	public void goLeft(){ accelerationX= -1;}
-	public void goRight() { accelerationX=1;}
->>>>>>> master
 	public void stop() 
 	{
 		accelerationX=0;
 		accelerationY=0;
 	}
 	
-<<<<<<< HEAD
+
 	/**
          * metoda realizujaca swobodny spadek z przyspieszeniem 
          * @param gravity Stała grawitacji
          * @param dt Różnica czasu
          * @return predkosc jaka zyskal ten obiekt 
          */
-=======
+
 	
 	//metoda realizujaca swobodny spadek z przyspieszeniem gravity i przez czas dt
 	//zwrana jest predkosc jaka zyskal ten obiekt 
->>>>>>> master
+
 	public double freeFall(double gravity,long dt)
 	{
 		double toReturn=gravity*dt/10000;	
@@ -241,14 +234,14 @@ public class Player extends GraphicObject{
 		return toReturn;
 	}
 	//metoda zwiekszajaca vX o przyspieszenie accelerationX przez czas dt
-<<<<<<< HEAD
+
 
     /**
      *
      * @param dt
      */
-=======
->>>>>>> master
+
+
 	public void updatevX(long dt)
 	{
 		vX=vX+accelerationX*dt/11.5;
@@ -256,14 +249,14 @@ public class Player extends GraphicObject{
 			this.fuelLevel--;
 	}
 	//metoda zwiekszajaca vX o przyspieszenie accelerationY przez czas dt
-<<<<<<< HEAD
+
 
     /**
      *
      * @param dt
      */
-=======
->>>>>>> master
+
+
 	public void updatevY(long dt)
 	{
 		vY=vY+accelerationY*dt/10;
@@ -271,15 +264,15 @@ public class Player extends GraphicObject{
 			this.fuelLevel--;
 	}
 	//metoda zmieniajaca pozycje playera przez dany odstep czasowy dt
-<<<<<<< HEAD
+
 
     /**
      *
      * @param dt
      * @param gravity
      */
-=======
->>>>>>> master
+
+
 	public void updatePlayerPosition(long dt,double gravity )
 	{
 		updatevX(dt);
