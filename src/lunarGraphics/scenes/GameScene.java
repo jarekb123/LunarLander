@@ -22,6 +22,16 @@ public class GameScene extends Scene
     Level level;
    /** Obiekt @class Player, która przechowuje wszystkie informacje związane z danym graczem */
     Player player;
+<<<<<<< HEAD
+
+    /**
+     *
+     * @param parent
+     * @param size
+     * @param preferredSize
+     */
+=======
+>>>>>>> master
     public GameScene(LPanel parent, Dimension size, Dimension preferredSize)
     {
         super(parent, size, preferredSize);
@@ -33,7 +43,7 @@ public class GameScene extends Scene
         
         graphicObjects.add(player);
     }
-
+    
     @Override
     public void updateScene(Graphics2D g2d)
     {
@@ -81,7 +91,16 @@ public class GameScene extends Scene
 		// TODO Auto-generated method stub
 		
 	}
+<<<<<<< HEAD
+ 
+    /**
+     *
+     * @param dt
+     */
+    @Override 
+=======
 	@Override 
+>>>>>>> master
 	public void updateLogic(long dt)
 	{	
 		
@@ -90,6 +109,15 @@ public class GameScene extends Scene
 	}
 	//metoda sprawdzajaca czy rakieta nie przecina siÄ™ z podĹ‚oĹĽem(Polygon) i z kraĹ„cami 
 		//ekranu,czyli ĹĽe statek nie wyleciaĹ‚ poza ekran
+<<<<<<< HEAD
+
+    /**
+     *
+     * @param gameDim
+     * @return
+     */
+=======
+>>>>>>> master
 		public boolean ifCrashed(Dimension gameDim)
 		{
 			//TODO:SPRAWDZ CZY DOBRE WYMIARY

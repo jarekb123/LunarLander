@@ -23,6 +23,16 @@ public class GraphicButton extends GraphicObject implements ImageObserver
     boolean isMouseOn;
     boolean isActive = true;
     String action;
+<<<<<<< HEAD
+
+    /**
+         * Konstruktor ze ścieżką do pliku graficznego i współrzędnymi
+         * @param imgPath ścieżka do pliku graficznego
+         * @param x wsp. x
+         * @param y wsp. y
+         */
+=======
+>>>>>>> master
     public GraphicButton(String imgPath, double x, double y) {
         super(imgPath, x, y);
         new Thread(new Runnable() {
@@ -36,6 +46,14 @@ public class GraphicButton extends GraphicObject implements ImageObserver
         
         
     }
+
+    /**
+         * Konstruktor ze ścieżką do pliku graficznego i współrzędnymi
+         * @param imgPath ścieżka do pliku graficznego
+         * @param imgMouseOnPath ścieżka do pliku graficznego, który pokaże się po najechaniu na przycisk myszką
+         * @param x wsp. x
+         * @param y wsp. y
+         */
     public GraphicButton(String imgPath, String imgMouseOnPath, double x, double y)
     {
         super(imgPath, x, y);
@@ -49,10 +67,25 @@ public class GraphicButton extends GraphicObject implements ImageObserver
         loadMouseOnImage(imgMouseOnPath).start();
     }
     
+<<<<<<< HEAD
+    /**
+     * Ustawianie nazwy akcji, którą wykonuje przycisk
+     * @param a nazwa akcji
+     */
+=======
+>>>>>>> master
     public void setAction(String a)
     {
         action = a;
     }
+<<<<<<< HEAD
+
+    /**
+     * Pobiera nazwę akcji
+     * @return nazwa akcji
+     */
+=======
+>>>>>>> master
     public String getAction()
     {
         return action;
@@ -76,8 +109,16 @@ public class GraphicButton extends GraphicObject implements ImageObserver
             int xx = (int)(x*size.width) - width/2;
             int yy = (int)(y*size.height) - height/2;
             g2d.drawImage(img1, xx, yy, width, height, this);      
+            
         }
     }
+
+    /**
+     * Metoda obliczająca prostokąt przycisku 
+     * @param sceneSize Rozmiar sceny
+     * @param preferredSize Preferowany rozmiar sceny
+     * @return prostokąt, w którym znajduje się przycisk
+     */
     public Rectangle getButtonRect(Dimension sceneSize, Dimension preferredSize)
     {
         int scaleX = sceneSize.width/preferredSize.width;
@@ -89,6 +130,12 @@ public class GraphicButton extends GraphicObject implements ImageObserver
         int yy = (int)(y*sceneSize.height) - height/2;
         return new Rectangle(xx, yy, width, height);
     }
+
+    /**
+     * Metoda - Wątek ładujący obrazek, który pokazuje się po najechaniu myszką
+     * @param imgPath ścieżka do pliku graficznego
+     * @return wątek
+     */
     public Thread loadMouseOnImage(String imgPath)
     {
         return new Thread(new Runnable() {
@@ -99,6 +146,10 @@ public class GraphicButton extends GraphicObject implements ImageObserver
             }
         });
     }
+
+    /**
+     *
+     */
     public void mouseEntered()
     {
         isMouseOn = true;
@@ -108,6 +159,13 @@ public class GraphicButton extends GraphicObject implements ImageObserver
     {
         isMouseOn = false;
     }
+<<<<<<< HEAD
+
+    /**
+     * Deaktywacja przycisku
+     */
+=======
+>>>>>>> master
     public void deactive()
     {
         isActive = false;

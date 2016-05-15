@@ -25,6 +25,15 @@ public abstract class Scene implements MouseListener, MouseMotionListener, KeyLi
     Dimension size;
     Dimension preferredSize;
     LPanel parentPanel;
+<<<<<<< HEAD
+    /**
+     * Konstruktor sceny
+     * @param parent komponent nadrzędny - rodzic
+     * @param size Aktualny rozmiar komponentu wyswietlajacego scenę
+     * @param preferredSize Preferowany rozmiar komponentu wyświetlającego scenę
+     */
+=======
+>>>>>>> master
     public Scene(LPanel parent, Dimension size, Dimension preferredSize)
     {
         this.preferredSize = preferredSize;
@@ -34,10 +43,12 @@ public abstract class Scene implements MouseListener, MouseMotionListener, KeyLi
     }
     /** Abstrakcyjna metoda, której implementacja wykonuje rysowanie obiektów na kontekście graficznym
      * @param g2d Kontekst graficzny
-     * @param size Aktualny rozmiar komponentu wyswietlajacego scenę
-     * @param preferredSize Preferowany rozmiar komponentu wyświetlającego scenę
      */
     public abstract void updateScene(Graphics2D g2d);
+    /**
+     * Metoda, która sygnalizuje że został zmieniony rozmiar sceny
+     * @param reSize nowy rozmiar sceny
+     */
     public void resized(Dimension reSize) 
     { 
         isResized = true;
@@ -73,5 +84,13 @@ public abstract class Scene implements MouseListener, MouseMotionListener, KeyLi
     public void mouseMoved(MouseEvent e) {
     }
    // public abstract void updateLogic();
+<<<<<<< HEAD
+
+    /**
+     *
+     * @param dt
+     */
+=======
+>>>>>>> master
     public abstract void updateLogic(long dt);
 }

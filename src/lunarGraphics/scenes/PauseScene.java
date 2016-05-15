@@ -22,8 +22,17 @@ import lunarGraphics.LPanel.GameState;
  */
 public class PauseScene extends Scene {
 
+<<<<<<< HEAD
+    /**
+     *
+     * @param parent
+     * @param size
+     * @param preferredSize
+     */
+=======
     
     
+>>>>>>> master
     public PauseScene(LPanel parent, Dimension size, Dimension preferredSize)
     {
         super(parent, size, preferredSize);
@@ -52,11 +61,25 @@ public class PauseScene extends Scene {
             graphicObjects.get(i).paintImage(g2d, size, preferredSize);
         }
     }
+<<<<<<< HEAD
+
+    /**
+     * Powrót do gry
+     */
+=======
+>>>>>>> master
     public void resume()
     {
         parentPanel.setState(GameState.Play);
         parentPanel.initScene(GameState.Play);
     }
+<<<<<<< HEAD
+
+    /**
+     * Koniec gry
+     */
+=======
+>>>>>>> master
     public void exit()
     {
         System.exit(2);
@@ -131,7 +154,16 @@ public class PauseScene extends Scene {
 		// TODO Auto-generated method stub
 		
 	}
+<<<<<<< HEAD
+
+    /**
+     *
+     * @param dt
+     */
+    @Override
+=======
 	@Override
+>>>>>>> master
 	public void updateLogic(long dt) {
 		// TODO Auto-generated method stub
 		
