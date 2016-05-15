@@ -25,12 +25,15 @@ public abstract class Scene implements MouseListener, MouseMotionListener, KeyLi
     Dimension size;
     Dimension preferredSize;
     LPanel parentPanel;
+<<<<<<< HEAD
     /**
      * Konstruktor sceny
      * @param parent komponent nadrzędny - rodzic
      * @param size Aktualny rozmiar komponentu wyswietlajacego scenę
      * @param preferredSize Preferowany rozmiar komponentu wyświetlającego scenę
      */
+=======
+>>>>>>> master
     public Scene(LPanel parent, Dimension size, Dimension preferredSize)
     {
         this.preferredSize = preferredSize;
@@ -81,10 +84,13 @@ public abstract class Scene implements MouseListener, MouseMotionListener, KeyLi
     public void mouseMoved(MouseEvent e) {
     }
    // public abstract void updateLogic();
+<<<<<<< HEAD
 
     /**
      *
      * @param dt
      */
+=======
+>>>>>>> master
     public abstract void updateLogic(long dt);
 }

@@ -1,6 +1,10 @@
 package lunarGraphics;
 
+<<<<<<< HEAD
 import java.awt.*;
+=======
+import java.awt.Dimension;
+>>>>>>> master
 import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -24,6 +28,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import lunarGraphics.scenes.GameScene;
 import lunarGraphics.scenes.*;
+<<<<<<< HEAD
 
 /**
  *
@@ -68,6 +73,29 @@ public class LPanel extends JPanel implements Runnable, KeyListener, MouseListen
      * @param propFile
      */
     public LPanel(String propFile)
+=======
+public class LPanel extends JPanel implements Runnable, KeyListener, MouseListener, MouseMotionListener
+{
+    
+    Dimension minDim, preferredDim;
+    BufferStrategy bs;
+    Thread thread;
+    Scene scene;
+    GameScene gameScene;
+    long time=System.currentTimeMillis();
+
+
+
+ 
+
+    public enum GameState
+    {
+        Play, Pause
+    }
+    GameState state;
+    
+    LPanel(String propFile)
+>>>>>>> master
     {
         state = GameState.Play;
         scene = null;
@@ -90,29 +118,40 @@ public class LPanel extends JPanel implements Runnable, KeyListener, MouseListen
 //        bs = getBufferStrategy();
 //        
 //    }
+<<<<<<< HEAD
    /**
     * Metoda ładująca scenę zależnie od stanu gry
      * @param gs
     */
+=======
+   
+>>>>>>> master
     public void initScene(GameState gs)
     {
         if(gs == GameState.Play)
             scene = gameScene;
         else if(gs == GameState.Pause)
             scene = new PauseScene(this, getSize(), preferredDim);
+<<<<<<< HEAD
     }
     /**
      * Metoda rysująca grafikę na @class LPanel
      * @param g Kontekst graficzny
      */
+=======
+    } 
+>>>>>>> master
     @Override
     public void paintComponent(Graphics g)
     {
         scene.updateScene((Graphics2D)g);
     }
+<<<<<<< HEAD
     /**
      * Główna pętla gry
      */
+=======
+>>>>>>> master
     @Override
     public void run() {
         long currTime;
@@ -140,10 +179,14 @@ public class LPanel extends JPanel implements Runnable, KeyListener, MouseListen
             }
     	 }
     }
+<<<<<<< HEAD
     /**
      * Ładuje plik z ustawieniami okna (rozdzielczość, itp.)
      * @param filename Nazwa pliku
      */
+=======
+    
+>>>>>>> master
     private void loadProperties(String filename)
 	{
 		try 
@@ -172,10 +215,13 @@ public class LPanel extends JPanel implements Runnable, KeyListener, MouseListen
 		
 		
 	}
+<<<<<<< HEAD
     /**
      * Inicjalizuje LPanela
      * @param args 
      */
+=======
+>>>>>>> master
     public void init(String[] args)
     {
         
@@ -187,6 +233,7 @@ public class LPanel extends JPanel implements Runnable, KeyListener, MouseListen
         frame.addMouseMotionListener(lunar);
         frame.addWindowListener(new WindowAdapter() {
 
+<<<<<<< HEAD
             @Override
             public void windowIconified(WindowEvent we) {
         		lunar.thread = null;
@@ -196,12 +243,23 @@ public class LPanel extends JPanel implements Runnable, KeyListener, MouseListen
         		(lunar.thread = new Thread(lunar)).start(); 
         	}
             @Override
+=======
+            public void windowIconified(WindowEvent we) {
+        		lunar.thread = null;
+        	}
+            public void windowDeiconified(WindowEvent we) {
+        		(lunar.thread = new Thread(lunar)).start(); 
+        	}
+>>>>>>> master
             public void windowClosing(WindowEvent we) {
             	System.out.println("closing");
             	lunar.thread = null;
             	frame.dispose();
             }
+<<<<<<< HEAD
             @Override
+=======
+>>>>>>> master
             public void windowClosed(WindowEvent we) {
             	System.out.println("closed");
             	System.exit(1);
@@ -236,8 +294,12 @@ public class LPanel extends JPanel implements Runnable, KeyListener, MouseListen
         });
         (lunar.thread = new Thread(lunar)).start();
     }
+<<<<<<< HEAD
     
     @Override
+=======
+       @Override
+>>>>>>> master
     public void keyTyped(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_ESCAPE)
             initScene(GameState.Pause);
@@ -260,12 +322,15 @@ public class LPanel extends JPanel implements Runnable, KeyListener, MouseListen
         }
         else scene.keyReleased(e);
     }
+<<<<<<< HEAD
 
     /**
      *
      * @param gs
      * @return
      */
+=======
+>>>>>>> master
     public GameState setState(GameState gs)
     {
         return state = gs;
