@@ -1,4 +1,9 @@
 
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
 package lunarGraphics;
 
@@ -18,7 +23,6 @@ public class GraphicTitle extends GraphicObject {
      * @param x
      * @param y
      */
-
 
     public GraphicTitle(String imgPath, double x, double y) {
         super(imgPath, x, y);

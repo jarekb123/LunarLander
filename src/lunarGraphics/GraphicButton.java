@@ -32,7 +32,6 @@ public class GraphicButton extends GraphicObject implements ImageObserver
          * @param y wsp. y
          */
 
-
     public GraphicButton(String imgPath, double x, double y) {
         super(imgPath, x, y);
         new Thread(new Runnable() {
@@ -73,7 +72,6 @@ public class GraphicButton extends GraphicObject implements ImageObserver
      * @param a nazwa akcji
      */
 
-
     public void setAction(String a)
     {
         action = a;
@@ -84,8 +82,6 @@ public class GraphicButton extends GraphicObject implements ImageObserver
      * Pobiera nazwę akcji
      * @return nazwa akcji
      */
-
-
     public String getAction()
     {
         return action;
@@ -163,9 +159,7 @@ public class GraphicButton extends GraphicObject implements ImageObserver
 
     /**
      * Deaktywacja przycisku
-     *
      */
-
     public void deactive()
     {
         isActive = false;

@@ -55,16 +55,14 @@ public class LPanel extends JPanel implements Runnable, KeyListener, MouseListen
      */
     public enum GameState
     {
-
-        /**
-         *
-         */
         Play,
-
-        /**
-         *
-         */
-        Pause
+        Pause,
+        Menu,
+        LevelChoice,
+        NewGame,
+        LoadGame,
+        Instruction,
+        BestScore
     }
     GameState state;
     

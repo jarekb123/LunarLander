@@ -94,7 +94,7 @@ public class GameScene extends Scene
 
  
     /**
-     *
+     * metoda zmieniajaca logike gry co jakis czas 
      * @param dt
      */
     @Override
@@ -104,11 +104,10 @@ public class GameScene extends Scene
 		player.updatePlayerPosition(dt, level.getGravity());
 		
 	}
-	//metoda sprawdzajaca czy rakieta nie przecina siÄ™ z podĹ‚oĹĽem(Polygon) i z kraĹ„cami 
-		//ekranu,czyli ĹĽe statek nie wyleciaĹ‚ poza ekran
+	
 
 
-    /**
+    /**Metoda sprawdzająca czy rakieta nie rozbija się o ścianę ani o podłoże
      *
      * @param gameDim
      * @return
