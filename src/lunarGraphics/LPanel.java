@@ -1,119 +1,342 @@
 package lunarGraphics;
 
-import java.awt.Canvas;
-import java.awt.Color;
+
+import java.awt.*;
+
 import java.awt.Dimension;
+
+import java.awt.EventQueue;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
+import lunarGraphics.scenes.GameScene;
+import lunarGraphics.scenes.*;
 
 
-import lunarMap.Level;
-
-import lunarPlayer.Player;
 /**
- * klasa w której przechowywane są wszystkie elementy związane z grą
- * 
  *
+ * @author jarek
  */
-@SuppressWarnings("serial")
-public class LPanel extends Canvas implements KeyListener{
+public class LPanel extends JPanel implements Runnable, KeyListener, MouseListener, MouseMotionListener
+{
+    /** Minimalna rozdzielczość gry */
+    Dimension minDim;
+    /** Preferowana i domyślna rozdzielczość gry */
+    Dimension preferredDim;
+    /** Strategia buforu wyświetlania grafiki */
+    BufferStrategy bs;
+    /** Wątek pętli gry */
+    Thread thread;
+    /** Scena, która zarządza i wyświetla grafikę aktualnego stanu gry */
+    Scene scene;
+    /** Scena, która zarządza i wyświetla planszę (mapę i gracza). */
+    GameScene gameScene;
+    long time=System.currentTimeMillis();
 
-	/** Obiekt klasy @class Level która przechowuje wszystkie informacje związane z danym poziomem */
-	Level level;
-	/** Obiekt @class Player, która przechowuje wszystkie informacje związane z danym graczem */
+    /**
+     * Typ wyliczeniowy reprezentujący stan gry
+     */
+    public enum GameState
+    {
+        Play,
+        Pause,
+        Menu,
+        LevelChoice,
+        NewGame,
+        LoadGame,
+        Instruction,
+        BestScore
+    }
+    GameState state;
+    
+    /**
+     *
+     * @param propFile
+     */
+     LPanel(String propFile)
 
-	Player player;
-        JPanel panel;
-      //  Canvas gameCanvas = new Canvas();
-        BufferStrategy bufferStrategy;
-	public LPanel()
-	{
+    {
+        state = GameState.Play;
+        scene = null;
+  
+        loadProperties(propFile);
+        setPreferredSize(preferredDim);
+        setMinimumSize(minDim);
+        addKeyListener(this);
+        gameScene = new GameScene(this, getSize(), preferredDim);
+        grabFocus();
+        initScene(state);
+        addMouseListener(this);
+        addMouseMotionListener(this);
+    }
+//    @Override
+//    public void addNotify()
+//    {
+//        super.addNotify();
+//        createBufferStrategy(2);
+//        bs = getBufferStrategy();
+//        
+//    }
+
+   /**
+    * Metoda ładująca scenę zależnie od stanu gry
+     * @param gs
+    */
+
+   
+
+    public void initScene(GameState gs)
+    {
+       // if(gs == GameState.Menu)
+        //    scene = new MenuScene(this,getSize(),preferredDim);
+        //else 
+        	if(gs== GameState.Play)
+        	scene=gameScene;
+        else if(gs == GameState.Pause)
+            scene = new PauseScene(this, getSize(), preferredDim);
+
+    }
+    /**
+     * Metoda rysująca grafikę na @class LPanel
+     * @param g Kontekst graficzny
+     */
+
+    
+
+    @Override
+    public void paintComponent(Graphics g)
+    {
+        scene.updateScene((Graphics2D)g);
+    }
+
+    /**
+     * Główna pętla gry
+     */
+
+
+    @Override
+    public void run() {
+        long currTime;
+        long dt;
+        time=System.currentTimeMillis();
+    	while (thread == Thread.currentThread()) {
+    	    // Prepare for rendering the next frame
+            //modifyLocation();
+            // Render single frame
+            while(true)
+            {
+                currTime=System.currentTimeMillis();
+                dt=currTime-time;
+            	scene.updateLogic(dt);
+            	time=currTime;
+            	repaint();
+                
                
-                
-		level = new Level();
-		player = new Player();
-		player.loadPlayer("player.properties");
-		level.loadLevel("map.properties");
-		setPreferredSize(new Dimension(640,480));
-                
-               // add(gameCanvas);
-            Thread graphicThread = new Thread(new GraphicLoop(true, this));
-            graphicThread.start();
-               
-	}
-	/**
+            
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(LPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            }
+            }
+    	 }
+    }
 
-	 * metoda wywoływana za kazdym razem gdy coś się zmienia z oknem lub w oknie
-	 * @param g zmienna związana z grafiką
-	 * 	 */
-	public void paintCanvas() {
-		// TODO Auto-generated method stub
-                Graphics2D g2d = (Graphics2D) bufferStrategy.getDrawGraphics();
-		
-		level.getMap().paintMap(g2d, getSize());
-		
-		double scaleX = (double)getWidth()/(double)getPreferredSize().getWidth();
-		double scaleY = (double)getHeight()/(double)getPreferredSize().getHeight();
-		
-		g2d.drawImage(player.getImage(), (int)(player.getX()*getWidth()),(int)(player.getY()*getHeight()) ,(int)(player.getImage().getWidth()*scaleX),(int)(player.getImage().getHeight()*scaleY),null);
-		g2d.setColor(Color.white);
-		g2d.drawString("x: "+player.getX()*640, 0, (int)(getHeight()*0.05));
-		g2d.drawString("y: "+player.getY()*480, 0, (int)(getHeight()*0.1));
-		g2d.drawString("vX: "+player.getvX()*640, 0, (int)(getHeight()*0.15));
-		g2d.drawString("vY: "+player.getvY()*480, 0, (int)(getHeight()*0.2));
-		g2d.drawString("g: "+level.getGravity(), 0, (int)(getHeight()*0.25));
-		g2d.drawString("Fuel Level: "+player.getFuelLevel(), (int)(getWidth()-100), (int)(getHeight()*0.05));
-		g2d.drawString("Time: 0:00", (int)(getWidth()-100), (int)(getHeight()*0.1));
-                
-                bufferStrategy.show();
-	}
-	@Override
-	public void keyPressed(KeyEvent e) {
-		if(e.getKeyCode() == KeyEvent.VK_UP)
-		{
-			player.goUp();
-		}
-		if(e.getKeyCode() == KeyEvent.VK_DOWN)
-		{
-			player.goDown();
-		}
-	}
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		if(e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode()==KeyEvent.VK_DOWN)
-			player.stop();
-	}
-	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-    private class GraphicLoop implements Runnable {
+    /**
+     * Ładuje plik z ustawieniami okna (rozdzielczość, itp.)
+     * @param filename Nazwa pliku
+     */
 
-	boolean isRunning;
-	Canvas panel;
-	public GraphicLoop(boolean isRunning, Canvas canvas)
+    
+
+    private void loadProperties(String filename)
 	{
-		this.isRunning = isRunning;
-		panel = canvas;
-	}
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-                
-                        createBufferStrategy(2);
-                        bufferStrategy = getBufferStrategy();
-		while(isRunning)
+		try 
 		{
-                    paintCanvas();
+			InputStream is = new FileInputStream(filename);
+			Properties properties = new Properties();
+			
+			properties.load(is);
+			int minResX = Integer.parseInt(properties.getProperty("minimumResX"));
+			int minResY = Integer.parseInt(properties.getProperty("minimumResY"));
+			minDim = new Dimension(minResX, minResY);
+			
+			int preferredResX = Integer.parseInt(properties.getProperty("preferredResX"));
+			int preferredResY = Integer.parseInt(properties.getProperty("preferredResY"));
+			preferredDim = new Dimension(preferredResX, preferredResY);
+				
 		}
+		catch (FileNotFoundException e)
+		{
+			System.out.println("Blad wczytywania pliku - ustawienia okna: " + filename);
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		
+		
 	}
 
-}
-	
+    /**
+     * Inicjalizuje LPanela
+     * @param args 
+     */
+
+
+    public void init(String[] args)
+    {
+        
+        final LPanel lunar = new LPanel("window.properties");
+        
+        JFrame frame = new JFrame("Lunar v2");
+        frame.addKeyListener(lunar);
+        frame.addMouseListener(lunar.scene);
+        frame.addMouseMotionListener(lunar);
+        frame.addWindowListener(new WindowAdapter() {
+
+
+            @Override
+            public void windowIconified(WindowEvent we) {
+        		lunar.thread = null;
+        	}
+            @Override
+            public void windowDeiconified(WindowEvent we) {
+        		(lunar.thread = new Thread(lunar)).start(); 
+        	}
+            @Override
+            public void windowClosing(WindowEvent we) {
+            	System.out.println("closing");
+            	lunar.thread = null;
+            	frame.dispose();
+            }
+
+            @Override
+            public void windowClosed(WindowEvent we) {
+            	System.out.println("closed");
+            	System.exit(1);
+            }
+        });
+        frame.addComponentListener(new ComponentListener() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                lunar.scene.resized(lunar.getSize());
+            }
+
+            @Override
+            public void componentMoved(ComponentEvent e) {
+            }
+
+            @Override
+            public void componentShown(ComponentEvent e) {
+            }
+
+            @Override
+            public void componentHidden(ComponentEvent e) {
+            }
+        });
+        frame.add(lunar);
+        frame.pack();
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                frame.setVisible(true);
+               
+            }
+        });
+        (lunar.thread = new Thread(lunar)).start();
+    }
+
+    
+    @Override
+    public void keyTyped(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_ESCAPE)
+            initScene(GameState.Pause);
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e)
+    {
+       scene.keyPressed(e); 
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_ESCAPE)
+        {
+            if(state == GameState.Play)
+                initScene(setState(GameState.Pause));
+            else if(state == GameState.Pause)
+                initScene(setState(GameState.Play));    
+        }
+        else scene.keyReleased(e);
+    }
+
+
+    /**
+     *
+     * @param gs
+     * @return
+     */
+
+
+    public GameState setState(GameState gs)
+    {
+        return state = gs;
+    }
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        if(scene != null)
+            scene.mouseClicked(e);
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        if(scene != null)
+            scene.mousePressed(e);
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        if(scene != null)
+            scene.mouseReleased(e);
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        if(scene != null)
+            scene.mouseEntered(e);
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        if(scene != null)
+            scene.mouseExited(e);
+    }
+    @Override
+    public void mouseDragged(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        if(scene!=null)
+            scene.mouseMoved(e);
+    }
 }

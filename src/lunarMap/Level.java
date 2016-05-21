@@ -37,7 +37,10 @@ public class Level {
 		this.gameMap = new GameMap();
 	}
 	
-	public Level() {
+    /**
+     *
+     */
+    public Level() {
 		this.gameMap = new GameMap();
 	}
 	/**
