@@ -26,6 +26,7 @@ public class Player extends GraphicObject{
 	private double vX, vY;
 	private double fuelLevel, maxFuelLevel;
 	private boolean isRunning;
+	private boolean[] levelsAvalible;
 
 	private int accelerationY;
 	private int accelerationX;
@@ -40,6 +41,12 @@ public class Player extends GraphicObject{
 		vX=0;
 		vY=0;
 		isRunning = false;
+		levelsAvalible=new boolean[10];
+		for(boolean level:levelsAvalible)
+		{
+			level=false;
+		}
+		levelsAvalible[1]=true;
 	}
         /**
          * Konstruktor parametrowy
@@ -71,13 +78,13 @@ public class Player extends GraphicObject{
 
 	 * @param filename nazwa pliku
 	 */
-	public void loadPlayer(String filename)
+	public boolean loadPlayer(String filename)
 	{
 		System.setProperty("file.encoding","UTF-8");
 		 InputStream is;
 		 
-        try 
-        {
+       try 
+       {
         	Properties properties=new Properties();
 
         	is = new FileInputStream(new File(filename));
@@ -87,11 +94,12 @@ public class Player extends GraphicObject{
 			score=Integer.parseInt(properties.getProperty("score"));
 			maxFuelLevel=fuelLevel=Double.parseDouble(properties.getProperty("fuelLevel"));
 			
-			
-        } 
-        catch (IOException e)
-        {
-       	 e.printStackTrace();	
+			return true;
+       } 
+      catch(IOException e)
+       {
+      	 e.printStackTrace();	
+      	 return false;
         } 
 	}
 	/** 

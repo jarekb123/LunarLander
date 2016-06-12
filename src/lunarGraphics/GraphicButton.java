@@ -45,6 +45,7 @@ public class GraphicButton extends GraphicObject implements ImageObserver
         
         
     }
+   
 
     /**
          * Konstruktor ze ścieżką do pliku graficznego i współrzędnymi

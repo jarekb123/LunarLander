@@ -27,6 +27,8 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import lunarGraphics.scenes.GameScene;
+import lunarMap.Level;
+import lunarPlayer.Player;
 import lunarGraphics.scenes.*;
 
 
@@ -48,6 +50,8 @@ public class LPanel extends JPanel implements Runnable, KeyListener, MouseListen
     Scene scene;
     /** Scena, która zarządza i wyświetla planszę (mapę i gracza). */
     GameScene gameScene;
+    Player player;
+    Level level;
     long time=System.currentTimeMillis();
 
     /**
@@ -62,7 +66,9 @@ public class LPanel extends JPanel implements Runnable, KeyListener, MouseListen
         NewGame,
         LoadGame,
         Instruction,
-        BestScore
+        BestScore,
+        Options,
+        
     }
     GameState state;
     
@@ -104,13 +110,32 @@ public class LPanel extends JPanel implements Runnable, KeyListener, MouseListen
 
     public void initScene(GameState gs)
     {
-       // if(gs == GameState.Menu)
-        //    scene = new MenuScene(this,getSize(),preferredDim);
-        //else 
-        	if(gs== GameState.Play)
+    
+    	if(gs == GameState.Menu)
+            scene = new MenuScene(this,getSize(),preferredDim);
+    	
+    	if(gs== GameState.Play)
         	scene=gameScene;
-        else if(gs == GameState.Pause)
+    		//scene=new GameScene(this,getSize(),preferredDim);
+    	
+    	if(gs == GameState.Pause)
             scene = new PauseScene(this, getSize(), preferredDim);
+		
+    	if(gs == GameState.BestScore)
+			scene = new BestScoreScene(this,getSize(),preferredDim);
+		
+    	if(gs == GameState.Instruction)
+			scene = new Instruction(this,getSize(),preferredDim);
+		
+    	if(gs == GameState.LevelChoice)
+			scene = new LevelChoiceScene(this,getSize(),preferredDim);
+		
+    	if(gs == GameState.LoadGame)
+			scene = new LoadGameScene(this,getSize(),preferredDim);
+		
+    	if(gs == GameState.NewGame)
+			scene = new NewGameScene(this,getSize(),preferredDim);
+			
 
     }
     /**
@@ -338,5 +363,25 @@ public class LPanel extends JPanel implements Runnable, KeyListener, MouseListen
     public void mouseMoved(MouseEvent e) {
         if(scene!=null)
             scene.mouseMoved(e);
+    }
+    public void setPlayer(Player pl)
+    {
+    	player=pl;
+    }
+    public Player getPlayer()
+    {
+    	return player;
+    }
+    public void setLevel(Level l)
+    {
+    	level=l;
+    }
+    public Level getLevel()
+    {
+    	return level;
+    }
+    public void setGameScene(GameScene gs)
+    {
+    	gameScene=gs;
     }
 }

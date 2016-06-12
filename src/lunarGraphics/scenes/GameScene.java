@@ -39,8 +39,10 @@ public class GameScene extends Scene
         level.loadLevel("map2.properties");
         
         player = new Player();
-        player.loadPlayer("player.properties");
         
+        player.loadPlayer("player.properties");
+       // player=parentPanel.getPlayer();
+        //level=parentPanel.getLevel();
         graphicObjects.add(player);
     }
     
@@ -88,7 +90,6 @@ public class GameScene extends Scene
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
