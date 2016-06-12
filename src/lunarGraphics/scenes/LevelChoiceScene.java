@@ -21,7 +21,7 @@ public class LevelChoiceScene extends Scene {
 	public LevelChoiceScene(LPanel parent, Dimension size, Dimension preferredSize) {
 		super(parent, size, preferredSize);
 		player=parentPanel.getPlayer();
-		GraphicButton title = new GraphicButton("img/menu/graj.png","img/menu/grajon.png",0.5,0.8);   
+		GraphicButton title = new GraphicButton("img/menu/wroc.png","img/menu/wroc.png",0.5,0.8);   
 	    GraphicButton[] levels=new GraphicButton[10];
 	   
 		for(int i=0;i<=1;i++)

@@ -79,7 +79,7 @@ public class LPanel extends JPanel implements Runnable, KeyListener, MouseListen
      LPanel(String propFile)
 
     {
-        state = GameState.Play;
+        state = GameState.Menu;
         scene = null;
   
         loadProperties(propFile);
@@ -135,6 +135,10 @@ public class LPanel extends JPanel implements Runnable, KeyListener, MouseListen
 		
     	if(gs == GameState.NewGame)
 			scene = new NewGameScene(this,getSize(),preferredDim);
+    	if(gs== GameState.Options)
+    	{
+    		scene=new OptionScene(this,getSize(),preferredDim);
+    	}
 			
 
     }

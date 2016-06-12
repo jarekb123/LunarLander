@@ -1,29 +1,27 @@
 package lunarGraphics.scenes;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.io.FileInputStream;
-
-import javax.imageio.ImageIO;
 
 import lunarGraphics.GraphicButton;
 import lunarGraphics.LPanel;
 import lunarGraphics.LPanel.GameState;
 
-public class Instruction extends Scene {
+public class OptionScene extends Scene {
 
-	public Instruction(LPanel parent, Dimension size, Dimension preferredSize) {
+	public OptionScene(LPanel parent, Dimension size, Dimension preferredSize) {
 		super(parent, size, preferredSize);
-		GraphicButton retur = new GraphicButton("img/menu/wroc.png",0.5,0.8);
+		 GraphicButton sign = new GraphicButton("img/menu/opcje.png", 0.5, 0.3);
+	     GraphicButton retur = new GraphicButton("img/menu/wroc.png",0.5,0.8);
 	     retur.setAction("back");
+	     graphicObjects.add(sign);
 	     graphicObjects.add(retur);
-	     
-	     
 	}
 	public void back()
 	{
@@ -51,6 +49,8 @@ public class Instruction extends Scene {
                   case "back":
                 	  back();
                 	  break;
+                 default: 
+                	 break;
                   }
                }
                
@@ -58,47 +58,36 @@ public class Instruction extends Scene {
         }
     }
 
+	@Override
+	public void keyPressed(KeyEvent arg0) {
+	
+	}
 
 	@Override
-	public void keyPressed(KeyEvent e) {
+	public void keyReleased(KeyEvent arg0) {
 		
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e) {
-		
-	}
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-		
+	public void keyTyped(KeyEvent arg0) {
+	
 	}
 
 	@Override
 	public void updateScene(Graphics2D g2d) {
-		
-	try
-	{
-	
-		BufferedImage img=ImageIO.read(new FileInputStream("img/Instruction.png"));
-		g2d.drawImage(img,0,0,(int)size.width,(int)size.height,null);
-		 for(int i=0; i<graphicObjects.size(); i++)
-	        {
-	            graphicObjects.get(i).paintImage(g2d, size, preferredSize);
-	        }
-		
-	}
-	catch(Exception e)
-	{
-		e.printStackTrace();
-	}
-	
-	
+		Color transparentBlack = new Color(0f, 0f, 0f, 0.5f);
+		g2d.setBackground(transparentBlack);
+		g2d.setPaint(transparentBlack);
+	    g2d.fillRect(0, 0, size.width, size.height);
+	    for(int i=0; i<graphicObjects.size(); i++)
+        {
+            graphicObjects.get(i).paintImage(g2d, size, preferredSize);
+        }
 	}
 
 	@Override
 	public void updateLogic(long dt) {
-	
+
 	}
 
 }

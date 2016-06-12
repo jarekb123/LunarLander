@@ -114,6 +114,7 @@ public class MenuScene extends Scene {
         parentPanel.initScene(GameState.BestScore);
 	}
    
+   
     @Override
     public void mouseClicked(MouseEvent e)
     {
@@ -144,7 +145,7 @@ public class MenuScene extends Scene {
                          case "instruction":
                          		instruction();
                          		break;
-                         case "option":
+                         case "options":
                          		options();
                          		break;
                          case "best score":
@@ -153,6 +154,7 @@ public class MenuScene extends Scene {
                          case "exit":
                          		exit();
                          		break;
+               
                          default:
                              break;
                              

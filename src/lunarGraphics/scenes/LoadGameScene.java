@@ -8,9 +8,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.io.FileNotFoundException;
 
-import javax.swing.JTextField;
 
 import lunarGraphics.GraphicButton;
 import lunarGraphics.LPanel;
