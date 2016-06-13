@@ -7,8 +7,11 @@ package lunarGraphics.scenes;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+
+import javafx.geometry.Point2D;
 import lunarGraphics.LPanel;
 import lunarGraphics.LPanel.GameState;
+import lunarMap.GameMap;
 import lunarMap.Level;
 import lunarPlayer.Player;
 
@@ -37,7 +40,7 @@ public class GameScene extends Scene
     {
         super(parent, size, preferredSize);
         level = new Level();
-        level.loadLevel("map2.properties");
+        level.loadLevel("map.properties");
         
         player = new Player();
         
@@ -104,9 +107,15 @@ public class GameScene extends Scene
 	{	
 		
 		player.updatePlayerPosition(dt, level.getGravity());
+		if(ifLanded(size))
+		{
+			parentPanel.setState(GameState.Success);
+			parentPanel.initScene(GameState.Success);
+		}
 		if(ifCrashed(size))
 		{
-			System.exit(1);
+			parentPanel.setState(GameState.Crashed);
+	        parentPanel.initScene(GameState.Crashed);
 		}
 		
 	}
@@ -119,13 +128,40 @@ public class GameScene extends Scene
      * @return
      */
 
-
+    	public boolean ifLanded(Dimension gameDim)
+    	{
+    		GameMap map=level.getMap();
+    		level.getMap().createLandings(gameDim);
+    		Rectangle[] landings=level.getMap().landings;
+    		if(landings==null)
+    			System.out.println("shit");
+    		double x=player.getX()*gameDim.getWidth();
+    		double y=player.getY()*gameDim.getHeight();
+    		
+    		double width=(0.1*gameDim.getWidth());
+    		double height=(0.1*gameDim.getHeight());
+    		
+    		for(int i=0;i<landings.length;i++)
+    		{
+    			if(landings[i].intersects(x, y, width, height)
+    					&& level.getMaxVx()>player.getvX()&& level.getMaxVy()>player.getvY())
+    			{
+    				return true;
+    			}
+    		}
+    		return false;
+    	}
+    
 		public boolean ifCrashed(Dimension gameDim)
 		{
-			//TODO:SPRAWDZ CZY DOBRE WYMIARY
-			Polygon p=level.getMap().returnMapPolygon(gameDim);
-			if(p.intersects(player.getX(), player.getY(), 0.1*gameDim.getHeight(), 0.1*gameDim.getWidth())
-					||player.getX()==1||player.getY()==1||player.getX()==0||player.getY()==0)
+			Polygon pol=level.getMap().returnMapPolygon(gameDim);
+			int	x=(int)(player.getX()*gameDim.getWidth());
+			int y=(int)(player.getY()*gameDim.getHeight());
+			if(pol.intersects(x , y , 0.09*gameDim.getHeight(), 0.09*gameDim.getWidth()))
+			{
+				return true;	
+			}
+			if(player.getX()>1||player.getY()>1||player.getX()<0||player.getY()<0)
 				return true;
 			else 
 				return false;
