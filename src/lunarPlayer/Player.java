@@ -26,20 +26,25 @@ public class Player extends GraphicObject{
 	private double vX, vY;
 	private double fuelLevel, maxFuelLevel;
 	private boolean isRunning;
+	private boolean[] levelsAvalible;
 	private int accelerationY;
 	private int accelerationX;
 
         /** 
          * Domyślny konstruktor @class Player
          */
-
-
 	public Player()
 	{
 		super(0.5, 0.15);
 		vX=0;
 		vY=0;
 		isRunning = false;
+		levelsAvalible=new boolean[10];
+		for(boolean level:levelsAvalible)
+		{
+			level=false;
+		}
+		levelsAvalible[1]=true;
 	}
         /**
          * Konstruktor parametrowy
@@ -71,13 +76,13 @@ public class Player extends GraphicObject{
 
 	 * @param filename nazwa pliku
 	 */
-	public void loadPlayer(String filename)
+	public boolean loadPlayer(String filename)
 	{
 		System.setProperty("file.encoding","UTF-8");
 		 InputStream is;
 		 
-        try 
-        {
+       try 
+       {
         	Properties properties=new Properties();
 
         	is = new FileInputStream(new File(filename));
@@ -87,11 +92,12 @@ public class Player extends GraphicObject{
 			score=Integer.parseInt(properties.getProperty("score"));
 			maxFuelLevel=fuelLevel=Double.parseDouble(properties.getProperty("fuelLevel"));
 			
-			
-        } 
-        catch (IOException e)
-        {
-       	 e.printStackTrace();	
+			return true;
+       } 
+      catch(IOException e)
+       {
+      	 e.printStackTrace();	
+      	 return false;
         } 
 	}
 	/** 
@@ -184,8 +190,10 @@ public class Player extends GraphicObject{
 	{
 		this.y=y;
 	}
-
-        
+	public void setName(String s)
+	{
+		this.name=s;
+	}
         /**
          * Metoda włączająca ruch wymuszony gracza w górę
          */
@@ -214,30 +222,22 @@ public class Player extends GraphicObject{
 		accelerationX=0;
 		accelerationY=0;
 	}
-	
-
 	/**
          * metoda realizujaca swobodny spadek z przyspieszeniem 
          * @param gravity Stała grawitacji
          * @param dt Różnica czasu
          * @return predkosc jaka zyskal ten obiekt 
          */
-
-	
-	//metoda realizujaca swobodny spadek z przyspieszeniem gravity i przez czas dt
-	//zwrana jest predkosc jaka zyskal ten obiekt 
-
 	public double freeFall(double gravity,long dt)
 	{
 		double toReturn=gravity*dt/10000;	
 		
 		return toReturn;
 	}
-	//metoda zwiekszajaca vX o przyspieszenie accelerationX przez czas dt
-
 
     /**
-     *
+     *metoda zwiekszajaca vX o przyspieszenie accelerationX przez czas dt
+
      * @param dt
      */
 
@@ -248,26 +248,22 @@ public class Player extends GraphicObject{
 		if (accelerationX!=0)
 			this.fuelLevel--;
 	}
-	//metoda zwiekszajaca vX o przyspieszenie accelerationY przez czas dt
-
-
+	
     /**
-     *
+     *metoda zwiekszajaca vX o przyspieszenie accelerationY przez czas dt
+
      * @param dt
      */
-
-
 	public void updatevY(long dt)
 	{
 		vY=vY+accelerationY*dt/10;
 		if(accelerationY!=0)
 			this.fuelLevel--;
 	}
-	//metoda zmieniajaca pozycje playera przez dany odstep czasowy dt
 
 
     /**
-     *
+     *metoda zmieniajaca pozycje playera przez dany odstep czasowy dt
      * @param dt
      * @param gravity
      */

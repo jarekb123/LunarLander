@@ -1,30 +1,27 @@
 package lunarGraphics.scenes;
 
-
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.awt.event.KeyEvent;
-
-import lunarGraphics.LPanel;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+
 import lunarGraphics.GraphicButton;
+import lunarGraphics.LPanel;
 import lunarGraphics.LPanel.GameState;
 
+public class OptionScene extends Scene {
 
-public class BestScoreScene extends Scene {
-
-	public BestScoreScene(LPanel parent, Dimension size, Dimension preferredSize) {
+	public OptionScene(LPanel parent, Dimension size, Dimension preferredSize) {
 		super(parent, size, preferredSize);
-		 GraphicButton sign = new GraphicButton("img/menu/najlepszy_wynik.png", 0.5, 0.3);
+		 GraphicButton sign = new GraphicButton("img/menu/opcje.png", 0.5, 0.3);
 	     GraphicButton retur = new GraphicButton("img/menu/wroc.png",0.5,0.8);
 	     retur.setAction("back");
 	     graphicObjects.add(sign);
 	     graphicObjects.add(retur);
-		
 	}
 	public void back()
 	{
@@ -52,14 +49,15 @@ public class BestScoreScene extends Scene {
                   case "back":
                 	  back();
                 	  break;
-                default:
-                	break;
+                 default: 
+                	 break;
                   }
                }
                
             }
         }
     }
+
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 	
@@ -67,13 +65,12 @@ public class BestScoreScene extends Scene {
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
-
+		
 	}
-
 
 	@Override
 	public void keyTyped(KeyEvent arg0) {
-
+	
 	}
 
 	@Override
@@ -82,24 +79,15 @@ public class BestScoreScene extends Scene {
 		g2d.setBackground(transparentBlack);
 		g2d.setPaint(transparentBlack);
 	    g2d.fillRect(0, 0, size.width, size.height);
-	    g2d.setColor(new Color(12, 16, 116));
-	    Font f = new Font("Comic Sans MS", Font.BOLD, 30);
-        g2d.setFont(f);
-        //TODO: tu trzeba bedzie sciagać info z serwera
-        g2d.drawString("Abacki",(int)(size.width*0.3), (int)(size.height*0.4));
-        g2d.drawString("Babacki",(int)(size.width*0.3), (int)(size.height*0.55));
-        g2d.drawString("Cabacki",(int)(size.width*0.3), (int)(size.height*0.7));
 	    for(int i=0; i<graphicObjects.size(); i++)
         {
             graphicObjects.get(i).paintImage(g2d, size, preferredSize);
         }
-
 	}
 
 	@Override
-	public void updateLogic(long dt) 
-	{
-	}
-	
-}
+	public void updateLogic(long dt) {
 
+	}
+
+}

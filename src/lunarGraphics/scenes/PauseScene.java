@@ -105,6 +105,12 @@ public class PauseScene extends Scene {
             }
         }
     }
+
+    public void settings()
+    {
+    	parentPanel.setState(GameState.Options);
+        parentPanel.initScene(GameState.Options);
+    }
     @Override
     public void mouseClicked(MouseEvent e)
     {
@@ -129,6 +135,9 @@ public class PauseScene extends Scene {
                        case "exit":
                            exit();
                            break;
+                       case "settings":
+                       		settings();
+                       		break;
                        default:
                            break;
                            
@@ -141,17 +150,14 @@ public class PauseScene extends Scene {
         
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -162,7 +168,6 @@ public class PauseScene extends Scene {
      */
     @Override
     public void updateLogic(long dt) {
-		// TODO Auto-generated method stub
 		
 	}
     

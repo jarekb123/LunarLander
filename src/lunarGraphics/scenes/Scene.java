@@ -83,9 +83,6 @@ public abstract class Scene implements MouseListener, MouseMotionListener, KeyLi
     @Override
     public void mouseMoved(MouseEvent e) {
     }
-   // public abstract void updateLogic();
-
-
     /**
      *
      * @param dt
