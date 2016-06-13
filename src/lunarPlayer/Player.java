@@ -192,7 +192,10 @@ public class Player extends GraphicObject{
 	{
 		this.y=y;
 	}
-
+	public void setName(String s)
+	{
+		this.name=s;
+	}
       
         /**
          * Metoda włączająca ruch wymuszony gracza w górę

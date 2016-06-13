@@ -36,7 +36,8 @@ public class NewGameScene extends Scene {
 	{
 		//TODO: tworzenie playera od zera
 		player.loadPlayer("player.properties");
-		
+		player.setName(login);
+		parentPanel.setPlayer(player);
 		parentPanel.setState(GameState.LevelChoice);
         parentPanel.initScene(GameState.LevelChoice);
 	}

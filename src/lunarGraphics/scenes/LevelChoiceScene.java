@@ -40,6 +40,7 @@ public class LevelChoiceScene extends Scene {
 	}
 	public void startGame(String number)
 	{
+		//TODO:poprawic wybieranie lvl
 		Integer num=Integer.parseInt(number);
 		String filename=new String();
 		if(num==0)
@@ -81,20 +82,17 @@ public class LevelChoiceScene extends Scene {
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-
+	
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-
+	
 	}
 
 	@Override
@@ -113,7 +111,6 @@ public class LevelChoiceScene extends Scene {
 
 	@Override
 	public void updateLogic(long dt) {
-		// TODO Auto-generated method stub
 
 	}
 

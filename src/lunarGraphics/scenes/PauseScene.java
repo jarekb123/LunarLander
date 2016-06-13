@@ -105,6 +105,11 @@ public class PauseScene extends Scene {
             }
         }
     }
+    public void settings()
+    {
+    	parentPanel.setState(GameState.Options);
+        parentPanel.initScene(GameState.Options);
+    }
     @Override
     public void mouseClicked(MouseEvent e)
     {
@@ -129,6 +134,9 @@ public class PauseScene extends Scene {
                        case "exit":
                            exit();
                            break;
+                       case "settings":
+                       		settings();
+                       		break;
                        default:
                            break;
                            

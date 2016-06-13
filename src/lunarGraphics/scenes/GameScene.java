@@ -8,7 +8,7 @@ package lunarGraphics.scenes;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import lunarGraphics.LPanel;
-
+import lunarGraphics.LPanel.GameState;
 import lunarMap.Level;
 import lunarPlayer.Player;
 
@@ -22,6 +22,7 @@ public class GameScene extends Scene
     Level level;
    /** Obiekt @class Player, która przechowuje wszystkie informacje związane z danym graczem */
     Player player;
+    boolean firstTime=true;
 
 
     /**
@@ -41,15 +42,15 @@ public class GameScene extends Scene
         player = new Player();
         
         player.loadPlayer("player.properties");
-       // player=parentPanel.getPlayer();
-        //level=parentPanel.getLevel();
+      
         graphicObjects.add(player);
     }
-    
+   
     @Override
     public void updateScene(Graphics2D g2d)
     {
-        if(isResized)
+            
+    	//if(isResized)
             level.getMap().paintMap(g2d, size);
         for(int i=0; i<graphicObjects.size(); i++)
         {
@@ -103,6 +104,10 @@ public class GameScene extends Scene
 	{	
 		
 		player.updatePlayerPosition(dt, level.getGravity());
+		if(ifCrashed(size))
+		{
+			System.exit(1);
+		}
 		
 	}
 	
