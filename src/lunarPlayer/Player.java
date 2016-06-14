@@ -26,6 +26,7 @@ public class Player extends GraphicObject{
 	private boolean[] levelsAvalible;
 	private int accelerationY;
 	private int accelerationX;
+	private int lifes=1;
 
         /** 
          * Domyślny konstruktor @class Player
@@ -241,9 +242,13 @@ public class Player extends GraphicObject{
 
 	public void updatevX(long dt)
 	{
+		if(fuelLevel!=0)
+		{
 		vX=vX+accelerationX*dt/11.5;
 		if (accelerationX!=0)
 			this.fuelLevel--;
+	
+		}
 	}
 	
     /**
@@ -253,9 +258,12 @@ public class Player extends GraphicObject{
      */
 	public void updatevY(long dt)
 	{
-		vY=vY+accelerationY*dt/10;
-		if(accelerationY!=0)
-			this.fuelLevel--;
+		if(fuelLevel!=0)
+		{
+			vY=vY+accelerationY*dt/10;
+			if(accelerationY!=0)
+				this.fuelLevel--;
+		}
 	}
 
 
@@ -293,6 +301,13 @@ public class Player extends GraphicObject{
 	g2d.drawString("Fuel", (int)(size.width-100), (int)(size.height*0.05));
         
         g2d.fillRect((int)(size.width-100), (int)(size.height*0.05), (int)(fuelLevel*100/maxFuelLevel), (int)(scaleY*10));
-	g2d.drawString("Time: 0:00", (int)(size.width-100), (int)(size.height*0.15));
+	 }
+    public void addLife()
+    {
+    	this.lifes++;
+    }
+    public int getLifes()
+    {
+    	return lifes;
     }
 }

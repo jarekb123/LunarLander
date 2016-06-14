@@ -55,6 +55,7 @@ public class LPanel extends JPanel implements Runnable, KeyListener, MouseListen
     GameScene gameScene;
     Player player;
     Level level;
+    long points=0;
     long time=System.currentTimeMillis();
 
     /**
@@ -84,7 +85,7 @@ public class LPanel extends JPanel implements Runnable, KeyListener, MouseListen
      LPanel(String propFile)
 
     {
-        state = GameState.Play;
+        state = GameState.Instruction;
         scene = null;
   
         loadProperties(propFile);
@@ -400,6 +401,14 @@ public class LPanel extends JPanel implements Runnable, KeyListener, MouseListen
     public void setGameScene(GameScene gs)
     {
     	gameScene=gs;
+    }
+    public void setPoints(long Points)
+    {
+    	points=Points;
+    }
+    public long getPoints()
+    {
+    	return points;
     }
 
 }

@@ -10,9 +10,12 @@ import java.awt.event.KeyEvent;
 import java.util.Random;
 
 import lunarGraphics.Bonus;
+import lunarGraphics.ExtraLifeBonus;
+import lunarGraphics.ExtraPointsBonus;
 import lunarGraphics.GraphicButton;
 import lunarGraphics.LPanel;
 import lunarGraphics.LPanel.GameState;
+import lunarGraphics.TimeBonus;
 import lunarMap.Level;
 import lunarPlayer.Player;
 
@@ -28,6 +31,9 @@ public class GameScene extends Scene
     Player player;
     Bonus bonus;
     Random rnd=new Random();
+    long time=System.currentTimeMillis();
+    long currTime=6000000;
+    long points=0;
     boolean firstTime=true;
 
 
@@ -44,9 +50,9 @@ public class GameScene extends Scene
     {
         super(parent, size, preferredSize);
         level = new Level();
-        bonus=new Bonus("img/bonus.png",0.6,0.6);
+        bonus=new ExtraLifeBonus("img/bonus.png",0.6,0.6);
         level.loadLevel("map2.properties");
-        
+      
         player = new Player();
         player.loadPlayer("player.properties");
         
@@ -62,7 +68,11 @@ public class GameScene extends Scene
         {
             graphicObjects.get(i).paintImage(g2d, size, preferredSize);
         }
+        Integer x=player.getLifes();
+        g2d.drawString("Time:"+this.currTime/100000, (int)(size.width-100), (int)(size.height*0.15));
+        g2d.drawString(x.toString(), (int)(size.width-100), (int)(size.height*0.25));
     }
+    
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode() == KeyEvent.VK_UP)
@@ -100,6 +110,11 @@ public class GameScene extends Scene
 
 		
 	}
+	public void calculatePoints()
+	{
+		points+=currTime/1000;
+		
+	}
 
  
     /**
@@ -112,9 +127,13 @@ public class GameScene extends Scene
 		
 		player.updatePlayerPosition(dt, level.getGravity());
 		updateBonus(dt);
-
+		long extraTime=System.currentTimeMillis()-time;
+		currTime=currTime-extraTime;
+		ifBonusCatched();
 		if(ifLanded(size))
 		{
+			calculatePoints();
+			parentPanel.setPoints(points);
 			parentPanel.setState(GameState.Success);
 			parentPanel.initScene(GameState.Success);
 		}
@@ -142,7 +161,31 @@ public class GameScene extends Scene
     }
    public void ifBonusCatched()
     {
-    	if()
+    	if(!bonus.iftouched())
+    	{
+    		double x=player.getX()*size.getWidth();
+	    	double y=player.getY()*size.getHeight();
+	    	double h=0.1*size.getHeight();
+	    	double w=0.1*size.getWidth();
+	    	if(bonus.getButtonRect(size, preferredSize).intersects(x,y,w,h))
+	    	{
+			  //TODO: jeszcze obczaić aby lepiej to działało
+			   if(bonus instanceof TimeBonus)
+			   {
+				   currTime+=1000000;
+			   }
+			   if(bonus instanceof ExtraLifeBonus)
+			   {
+				   player.addLife();
+			   }
+			   if(bonus instanceof ExtraPointsBonus)
+			   {
+				   points+=100;
+			   }
+			   bonus.touched();
+			   graphicObjects.remove(bonus);
+		   }
+	   }
     }
 	
 
@@ -163,6 +206,7 @@ public class GameScene extends Scene
     			if(landings[i].intersects(x, y, width, height)
     					&& level.getMaxVx()>player.getvX()&& level.getMaxVy()>player.getvY())
     			{
+    				points+=i*1000;
     				return true;
     			}
     		}
@@ -177,6 +221,10 @@ public class GameScene extends Scene
     
 		public boolean ifCrashed(Dimension gameDim)
 		{
+			if(currTime<0)
+			{
+				return true;
+			}
 			Polygon pol=level.getMap().returnMapPolygon(gameDim);
 			int	x=(int)(player.getX()*gameDim.getWidth());
 			int y=(int)(player.getY()*gameDim.getHeight());

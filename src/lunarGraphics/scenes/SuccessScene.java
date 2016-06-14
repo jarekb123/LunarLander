@@ -2,6 +2,7 @@ package lunarGraphics.scenes;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -14,6 +15,7 @@ import lunarGraphics.LPanel.GameState;
 
 public class SuccessScene extends Scene {
 
+	long points=parentPanel.getPoints();
 	public SuccessScene(LPanel parent, Dimension size, Dimension preferredSize) {
 		super(parent, size, preferredSize);
 		 GraphicButton sign = new GraphicButton("img/menu/sukces.png", 0.5, 0.3);
@@ -83,6 +85,12 @@ public class SuccessScene extends Scene {
         {
             graphicObjects.get(i).paintImage(g2d, size, preferredSize);
         }
+	    g2d.setColor(new Color(255,255,0));
+	   Integer x=(int)points;
+	   Font f = new Font("Comic Sans MS", Font.BOLD, 30);
+       g2d.setFont(f);
+	   g2d.drawString(x.toString()+"pkt", (int)(size.width*0.5), (int)(size.height*0.5));
+	    
 	}
 
 
