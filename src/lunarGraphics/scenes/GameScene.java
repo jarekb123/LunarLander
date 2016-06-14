@@ -7,6 +7,10 @@ package lunarGraphics.scenes;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.Random;
+
+import lunarGraphics.Bonus;
+import lunarGraphics.GraphicButton;
 import lunarGraphics.LPanel;
 import lunarGraphics.LPanel.GameState;
 import lunarMap.Level;
@@ -22,7 +26,8 @@ public class GameScene extends Scene
     Level level;
    /** Obiekt @class Player, która przechowuje wszystkie informacje związane z danym graczem */
     Player player;
-
+    Bonus bonus;
+    Random rnd=new Random();
     boolean firstTime=true;
 
 
@@ -39,13 +44,14 @@ public class GameScene extends Scene
     {
         super(parent, size, preferredSize);
         level = new Level();
-
+        bonus=new Bonus("img/bonus.png",0.6,0.6);
         level.loadLevel("map2.properties");
         
         player = new Player();
         player.loadPlayer("player.properties");
         
         graphicObjects.add(player);
+        graphicObjects.add(bonus);
     }
    
     @Override
@@ -105,6 +111,7 @@ public class GameScene extends Scene
 	{	
 		
 		player.updatePlayerPosition(dt, level.getGravity());
+		updateBonus(dt);
 
 		if(ifLanded(size))
 		{
@@ -118,6 +125,25 @@ public class GameScene extends Scene
 		}
 		
 	}
+    public void updateBonus(long dt)
+    {
+    	double freefall=level.getGravity()*dt/1000;
+    	double newY=bonus.getY()-freefall/10000;
+    	double vX=rnd.nextDouble()/10;
+    	
+    	if(rnd.nextBoolean())
+    	{
+    		vX=-vX;
+    	}
+    	
+    	double newX=bonus.getX()+vX/1000;
+    	bonus.setX(newX);
+    	bonus.setY(newY);
+    }
+   public void ifBonusCatched()
+    {
+    	if()
+    }
 	
 
     	public boolean ifLanded(Dimension gameDim)
