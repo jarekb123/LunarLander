@@ -18,7 +18,7 @@ public class MenuScene extends Scene {
 	{
 		super(parent, size, preferredSize);
 		
-		GraphicButton loadGameBtn = new GraphicButton("img/menu/wczytaj_gre.png", "img/menu/wczytaj_gre_onclick.png", 0.5, 0.25);
+		GraphicButton loadGameBtn = new GraphicButton("img/menu/wczytaj_gre.png", "img/menu/wczytaj_gre_onclick.png", 0.5, 0.25);	        
 	    loadGameBtn.setAction("load game");
 	    GraphicButton saveGameBtn = new GraphicButton("img/menu/zapisz_gre.png", "img/menu/zapisz_gre_onclick.png", 0.5, 0.4);
 	    saveGameBtn.setAction("save game");
@@ -57,7 +57,12 @@ public class MenuScene extends Scene {
             graphicObjects.get(i).paintImage(g2d, size, preferredSize);
         }
     }
-   
+
+    public void resume()
+    {
+        parentPanel.setState(GameState.Play);
+        parentPanel.initScene(GameState.Play);
+    }
     public void exit()
     {
         System.exit(2);

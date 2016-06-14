@@ -1,8 +1,6 @@
 package lunarGraphics;
 
 
-import java.awt.*;
-
 import java.awt.Dimension;
 
 import java.awt.EventQueue;
@@ -27,6 +25,7 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import lunarGraphics.scenes.GameScene;
+
 import lunarMap.Level;
 import lunarPlayer.Player;
 import lunarGraphics.scenes.*;
@@ -38,7 +37,11 @@ import lunarGraphics.scenes.*;
  */
 public class LPanel extends JPanel implements Runnable, KeyListener, MouseListener, MouseMotionListener
 {
-    /** Minimalna rozdzielczość gry */
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/** Minimalna rozdzielczość gry */
     Dimension minDim;
     /** Preferowana i domyślna rozdzielczość gry */
     Dimension preferredDim;
@@ -112,16 +115,17 @@ public class LPanel extends JPanel implements Runnable, KeyListener, MouseListen
 
     public void initScene(GameState gs)
     {
-    
+        	if(gs== GameState.Play)
+        	scene=gameScene;
+			if(gs == GameState.Pause)
+            scene = new PauseScene(this, getSize(), preferredDim);
+
     	if(gs == GameState.Menu)
             scene = new MenuScene(this,getSize(),preferredDim);
     	
     	if(gs== GameState.Play)
     	{
-    		//scene=gameScene;
-    		//scene.launchScene();
     		scene=new GameScene(this,getSize(),preferredDim);
-    		//scene.launchScene();
     	} 	
     	if(gs == GameState.Pause)
             scene = new PauseScene(this, getSize(), preferredDim);
@@ -149,7 +153,6 @@ public class LPanel extends JPanel implements Runnable, KeyListener, MouseListen
     	if(gs== GameState.Success)
     		scene= new SuccessScene(this,getSize(),preferredDim); 
 			
-
     }
     /**
      * Metoda rysująca grafikę na @class LPanel
@@ -377,6 +380,7 @@ public class LPanel extends JPanel implements Runnable, KeyListener, MouseListen
         if(scene!=null)
             scene.mouseMoved(e);
     }
+
     public void setPlayer(Player pl)
     {
     	player=pl;
@@ -397,4 +401,5 @@ public class LPanel extends JPanel implements Runnable, KeyListener, MouseListen
     {
     	gameScene=gs;
     }
+
 }

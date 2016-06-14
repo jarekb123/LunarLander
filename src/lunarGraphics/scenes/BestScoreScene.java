@@ -1,17 +1,19 @@
 package lunarGraphics.scenes;
 
-import java.awt.Color;
+
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
+
+import lunarGraphics.LPanel;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-
 import lunarGraphics.GraphicButton;
-import lunarGraphics.LPanel;
 import lunarGraphics.LPanel.GameState;
+
 
 public class BestScoreScene extends Scene {
 
@@ -65,13 +67,13 @@ public class BestScoreScene extends Scene {
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
-	
+
 	}
 
 
 	@Override
 	public void keyTyped(KeyEvent arg0) {
-	
+
 	}
 
 	@Override
@@ -91,12 +93,13 @@ public class BestScoreScene extends Scene {
         {
             graphicObjects.get(i).paintImage(g2d, size, preferredSize);
         }
-		
 
 	}
 
 	@Override
-	public void updateLogic(long dt) {
-			}
-
+	public void updateLogic(long dt) 
+	{
+	}
+	
 }
+

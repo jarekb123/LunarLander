@@ -1,7 +1,6 @@
 package lunarGraphics.scenes;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -83,7 +82,6 @@ public abstract class Scene implements MouseListener, MouseMotionListener, KeyLi
     @Override
     public void mouseMoved(MouseEvent e) {
     }
-
     /**
      *
      * @param dt

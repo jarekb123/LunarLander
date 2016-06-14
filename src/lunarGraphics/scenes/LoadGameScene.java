@@ -133,16 +133,12 @@ public class LoadGameScene extends Scene {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-	
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-	
+
 	}
-
-	
-
 	@Override
 	public void updateLogic(long dt) {
 	

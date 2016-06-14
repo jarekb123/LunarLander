@@ -3,12 +3,9 @@ package lunarPlayer;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -27,14 +24,12 @@ public class Player extends GraphicObject{
 	private double fuelLevel, maxFuelLevel;
 	private boolean isRunning;
 	private boolean[] levelsAvalible;
-
 	private int accelerationY;
 	private int accelerationX;
 
         /** 
          * Domyślny konstruktor @class Player
          */
-
 	public Player()
 	{
 		super(0.5, 0.15);
@@ -196,7 +191,6 @@ public class Player extends GraphicObject{
 	{
 		this.name=s;
 	}
-      
         /**
          * Metoda włączająca ruch wymuszony gracza w górę
          */
@@ -225,11 +219,6 @@ public class Player extends GraphicObject{
 		accelerationX=0;
 		accelerationY=0;
 	}
-
-	
-	//metoda zmieniająca pozycję playera przez dany odstęp czasowy dt
-	
-
 	/**
          * metoda realizujaca swobodny spadek z przyspieszeniem 
          * @param gravity Stała grawitacji
@@ -242,11 +231,10 @@ public class Player extends GraphicObject{
 		
 		return toReturn;
 	}
-	//metoda zwiekszajaca vX o przyspieszenie accelerationX przez czas dt
-
 
     /**
-     *
+     *metoda zwiekszajaca vX o przyspieszenie accelerationX przez czas dt
+
      * @param dt
      */
 
@@ -257,26 +245,22 @@ public class Player extends GraphicObject{
 		if (accelerationX!=0)
 			this.fuelLevel--;
 	}
-	//metoda zwiekszajaca vX o przyspieszenie accelerationY przez czas dt
-
-
+	
     /**
-     *
+     *metoda zwiekszajaca vX o przyspieszenie accelerationY przez czas dt
+
      * @param dt
      */
-
-
 	public void updatevY(long dt)
 	{
 		vY=vY+accelerationY*dt/10;
 		if(accelerationY!=0)
 			this.fuelLevel--;
 	}
-	//metoda zmieniajaca pozycje playera przez dany odstep czasowy dt
 
 
     /**
-     *
+     *metoda zmieniajaca pozycje playera przez dany odstep czasowy dt
      * @param dt
      * @param gravity
      */
@@ -311,5 +295,4 @@ public class Player extends GraphicObject{
         g2d.fillRect((int)(size.width-100), (int)(size.height*0.05), (int)(fuelLevel*100/maxFuelLevel), (int)(scaleY*10));
 	g2d.drawString("Time: 0:00", (int)(size.width-100), (int)(size.height*0.15));
     }
-
 }

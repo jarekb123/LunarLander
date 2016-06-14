@@ -105,6 +105,7 @@ public class PauseScene extends Scene {
             }
         }
     }
+
     public void settings()
     {
     	parentPanel.setState(GameState.Options);
@@ -149,17 +150,14 @@ public class PauseScene extends Scene {
         
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -170,7 +168,6 @@ public class PauseScene extends Scene {
      */
     @Override
     public void updateLogic(long dt) {
-		// TODO Auto-generated method stub
 		
 	}
     

@@ -7,11 +7,12 @@ package lunarGraphics.scenes;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.Random;
 
-import javafx.geometry.Point2D;
+import lunarGraphics.Bonus;
+import lunarGraphics.GraphicButton;
 import lunarGraphics.LPanel;
 import lunarGraphics.LPanel.GameState;
-import lunarMap.GameMap;
 import lunarMap.Level;
 import lunarPlayer.Player;
 
@@ -25,7 +26,10 @@ public class GameScene extends Scene
     Level level;
    /** Obiekt @class Player, która przechowuje wszystkie informacje związane z danym graczem */
     Player player;
+    Bonus bonus;
+    Random rnd=new Random();
     boolean firstTime=true;
+
 
 
     /**
@@ -40,21 +44,20 @@ public class GameScene extends Scene
     {
         super(parent, size, preferredSize);
         level = new Level();
-        level.loadLevel("map.properties");
+        bonus=new Bonus("img/bonus.png",0.6,0.6);
+        level.loadLevel("map2.properties");
         
         player = new Player();
-        
         player.loadPlayer("player.properties");
-      
+        
         graphicObjects.add(player);
+        graphicObjects.add(bonus);
     }
    
     @Override
     public void updateScene(Graphics2D g2d)
-    {
-            
-    	//if(isResized)
-            level.getMap().paintMap(g2d, size);
+    {            
+        level.getMap().paintMap(g2d, size);
         for(int i=0; i<graphicObjects.size(); i++)
         {
             graphicObjects.get(i).paintImage(g2d, size, preferredSize);
@@ -94,6 +97,7 @@ public class GameScene extends Scene
 
 	@Override
 	public void keyTyped(KeyEvent e) {
+
 		
 	}
 
@@ -107,6 +111,8 @@ public class GameScene extends Scene
 	{	
 		
 		player.updatePlayerPosition(dt, level.getGravity());
+		updateBonus(dt);
+
 		if(ifLanded(size))
 		{
 			parentPanel.setState(GameState.Success);
@@ -119,18 +125,29 @@ public class GameScene extends Scene
 		}
 		
 	}
+    public void updateBonus(long dt)
+    {
+    	double freefall=level.getGravity()*dt/1000;
+    	double newY=bonus.getY()-freefall/10000;
+    	double vX=rnd.nextDouble()/10;
+    	
+    	if(rnd.nextBoolean())
+    	{
+    		vX=-vX;
+    	}
+    	
+    	double newX=bonus.getX()+vX/1000;
+    	bonus.setX(newX);
+    	bonus.setY(newY);
+    }
+   public void ifBonusCatched()
+    {
+    	if()
+    }
 	
-
-
-    /**Metoda sprawdzająca czy rakieta nie rozbija się o ścianę ani o podłoże
-     *
-     * @param gameDim
-     * @return
-     */
 
     	public boolean ifLanded(Dimension gameDim)
     	{
-    		GameMap map=level.getMap();
     		level.getMap().createLandings(gameDim);
     		Rectangle[] landings=level.getMap().landings;
     		if(landings==null)
@@ -151,6 +168,12 @@ public class GameScene extends Scene
     		}
     		return false;
     	}
+
+        /**Metoda sprawdzająca czy rakieta nie rozbija się o ścianę ani o podłoże
+         *
+         * @param gameDim
+         * @return
+         */
     
 		public boolean ifCrashed(Dimension gameDim)
 		{

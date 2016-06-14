@@ -1,5 +1,6 @@
 package lunarGraphics.scenes;
 
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -93,12 +94,10 @@ public class NewGameScene extends Scene {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		
 	}
 
 	@Override

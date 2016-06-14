@@ -11,13 +11,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
-
 import javax.imageio.ImageIO;
 
-import com.sun.javafx.geom.Shape;
 /**
  * klasa zawiera dane związane z planszą, czyli ścieżkę do pliku z tłem(imgPath) i punktami podloza(x[],y[])
  * 

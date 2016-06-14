@@ -2,17 +2,17 @@ package lunarGraphics.scenes;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+
+import java.awt.event.KeyEvent;
+
+import lunarGraphics.LPanel;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
-
 import javax.imageio.ImageIO;
-
 import lunarGraphics.GraphicButton;
-import lunarGraphics.LPanel;
 import lunarGraphics.LPanel.GameState;
 
 public class Instruction extends Scene {
@@ -61,17 +61,14 @@ public class Instruction extends Scene {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		
 	}
 
 	@Override
@@ -93,12 +90,11 @@ public class Instruction extends Scene {
 		e.printStackTrace();
 	}
 	
-	
 	}
 
 	@Override
 	public void updateLogic(long dt) {
-	
+
 	}
 
 }

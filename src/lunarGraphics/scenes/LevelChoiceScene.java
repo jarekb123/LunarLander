@@ -82,12 +82,11 @@ public class LevelChoiceScene extends Scene {
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
-		
+
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-	
 	}
 
 	@Override
@@ -105,8 +104,6 @@ public class LevelChoiceScene extends Scene {
         {
             graphicObjects.get(i).paintImage(g2d, size, preferredSize);
         }
-		
-
 	}
 
 	@Override
