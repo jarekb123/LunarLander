@@ -31,10 +31,14 @@ public class GameScene extends Scene
     Player player;
     Bonus bonus;
     Random rnd=new Random();
-    long time=System.currentTimeMillis();
+    long timeState=System.currentTimeMillis();
+    long time;
     long currTime=6000000;
     long points=0;
     boolean firstTime=true;
+    Integer state=3;
+    String stateString=state.toString();
+    int n=0;
 
 
 
@@ -51,11 +55,10 @@ public class GameScene extends Scene
         super(parent, size, preferredSize);
         level = new Level();
         bonus=new ExtraLifeBonus("img/bonus.png",0.6,0.6);
-        level.loadLevel("map2.properties");
-      
+       level=parentPanel.getLevel();
         player = new Player();
-        player.loadPlayer("player.properties");
-        
+        player=parentPanel.getPlayer();
+        level.setParameters(parentPanel.getDifficultyLevel()-1);
         graphicObjects.add(player);
         graphicObjects.add(bonus);
     }
@@ -69,8 +72,16 @@ public class GameScene extends Scene
             graphicObjects.get(i).paintImage(g2d, size, preferredSize);
         }
         Integer x=player.getLifes();
+        Double g=level.getGravity();
         g2d.drawString("Time:"+this.currTime/100000, (int)(size.width-100), (int)(size.height*0.15));
         g2d.drawString(x.toString(), (int)(size.width-100), (int)(size.height*0.25));
+        g2d.drawString(g.toString(), (int)(size.width-100), (int)(size.height*0.25));
+        g2d.setColor(new Color(12, 16, 116));
+        Font f = new Font("Comic Sans MS", Font.BOLD, 30);
+        g2d.setFont(f);
+        g2d.drawString(stateString, (int)(0.5*size.getWidth()), (int)(0.5*size.getHeight()));
+        g2d.drawString(player.getName(), (int)(size.width-100), (int)(size.height*0.35));
+        
     }
     
 	@Override
@@ -124,26 +135,50 @@ public class GameScene extends Scene
     @Override
     public void updateLogic(long dt)
 	{	
+		if(state==0)
+		{
+	    	player.updatePlayerPosition(dt, level.getGravity());
+			updateBonus(dt);
+			long extraTime=System.currentTimeMillis()-time;
+			currTime=currTime-extraTime;
+			ifBonusCatched();
+			if(ifLanded(size))
+			{
+				calculatePoints();
+				player.addPoints(points);
+				player.savePlayer();
+				parentPanel.setPoints(points);
+				parentPanel.setState(GameState.Success);
+				parentPanel.initScene(GameState.Success);
+			}
+			if(ifCrashed(size))
+			{
+				parentPanel.setState(GameState.Crashed);
+		        parentPanel.initScene(GameState.Crashed);
+			}
+		}
+		else 
+			updateState();
 		
-		player.updatePlayerPosition(dt, level.getGravity());
-		updateBonus(dt);
-		long extraTime=System.currentTimeMillis()-time;
-		currTime=currTime-extraTime;
-		ifBonusCatched();
-		if(ifLanded(size))
-		{
-			calculatePoints();
-			parentPanel.setPoints(points);
-			parentPanel.setState(GameState.Success);
-			parentPanel.initScene(GameState.Success);
-		}
-		if(ifCrashed(size))
-		{
-			parentPanel.setState(GameState.Crashed);
-	        parentPanel.initScene(GameState.Crashed);
-		}
 		
 	}
+    public void updateState()
+    {
+    	long t=System.currentTimeMillis()-timeState;
+    	
+    	t=t%4000;
+    	if(t>(n+1)*1000)
+    	{
+    		state--;
+    		n++;
+    		stateString=state.toString();
+    		if(state==0)
+    		{
+    			stateString="";
+    			time=System.currentTimeMillis();
+    		}
+    	}
+    }
     public void updateBonus(long dt)
     {
     	double freefall=level.getGravity()*dt/1000;
@@ -206,6 +241,7 @@ public class GameScene extends Scene
     			if(landings[i].intersects(x, y, width, height)
     					&& level.getMaxVx()>player.getvX()&& level.getMaxVy()>player.getvY())
     			{
+    			//TODO: jeszcze można to trochę elastyczniej
     				points+=i*1000;
     				return true;
     			}

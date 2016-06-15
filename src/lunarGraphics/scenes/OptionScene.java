@@ -14,20 +14,66 @@ import lunarGraphics.LPanel;
 import lunarGraphics.LPanel.GameState;
 
 public class OptionScene extends Scene {
-
+	//TODO: jeszcze poprawic aby bylo sciagane z LPANEL
+	int state=1;
+	String difficultyLevel="latwy";
 	public OptionScene(LPanel parent, Dimension size, Dimension preferredSize) {
 		super(parent, size, preferredSize);
-		 GraphicButton sign = new GraphicButton("img/menu/opcje.png", 0.5, 0.3);
-	     GraphicButton retur = new GraphicButton("img/menu/wroc.png",0.5,0.8);
-	     retur.setAction("back");
-	     graphicObjects.add(sign);
-	     graphicObjects.add(retur);
+		state=parentPanel.getDifficultyLevel();
+		changeDifficultyLevel();
+		GraphicButton sign = new GraphicButton("img/menu/opcje.png", 0.5, 0.3);
+	    GraphicButton retur = new GraphicButton("img/menu/wroc.png",0.5,0.8);
+	    retur.setAction("back");
+	    GraphicButton more = new GraphicButton("img/menu/wiecej.png",0.8,0.5);
+	    more.setAction("more");
+	    GraphicButton less = new GraphicButton("img/menu/mniej.png",0.3,0.5);
+	    less.setAction("less");
+	    	    
+	    graphicObjects.add(sign);
+	    graphicObjects.add(retur);
+	    graphicObjects.add(more);
+	    graphicObjects.add(less);
 	}
 	public void back()
 	{
+		parentPanel.setDifficultyLevel(state);
 		parentPanel.setState(GameState.Menu);
         parentPanel.initScene(GameState.Menu);
 			
+	}
+	public void more()
+	{
+		state++;
+		changeDifficultyLevel();
+	}
+	public void less()
+	{
+		state--;
+		changeDifficultyLevel();
+	}
+	public void changeDifficultyLevel()
+	{
+		//state--;
+		if(state<1)
+		{
+			state=3;
+		}
+		if(state>3)
+		{
+			state=1;
+		}
+		if(state==1)
+		{
+			difficultyLevel="latwy";
+		}
+		if(state==2)
+		{
+			difficultyLevel="sredni";
+		}
+		if(state==3)
+		{
+			difficultyLevel="trudny";
+		}
 	}
 	@Override
     public void mouseClicked(MouseEvent e)
@@ -48,6 +94,12 @@ public class OptionScene extends Scene {
                   {
                   case "back":
                 	  back();
+                	  break;
+                  case "more":
+                	  more();
+                	  break;
+                  case "less":
+                	  less();
                 	  break;
                  default: 
                 	 break;
@@ -83,6 +135,10 @@ public class OptionScene extends Scene {
         {
             graphicObjects.get(i).paintImage(g2d, size, preferredSize);
         }
+	    g2d.setColor(new Color(255,255,0));
+	    Font f = new Font("Comic Sans MS", Font.BOLD, 30);
+        g2d.setFont(f);
+	    g2d.drawString(difficultyLevel, (int)(0.5*size.getWidth()), (int)(0.5*size.getHeight()));
 	}
 
 	@Override

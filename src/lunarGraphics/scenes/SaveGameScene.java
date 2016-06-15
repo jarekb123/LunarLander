@@ -12,16 +12,17 @@ import lunarGraphics.GraphicButton;
 import lunarGraphics.LPanel;
 import lunarGraphics.LPanel.GameState;
 
-public class CrashScene extends Scene {
+public class SaveGameScene extends Scene {
 
-	public CrashScene(LPanel parent, Dimension size, Dimension preferredSize) {
-		super(parent, size, preferredSize);        
-        GraphicButton title = new GraphicButton("img/menu/katastrofa.png", 0.4, 0.2);
+	public SaveGameScene(LPanel parent, Dimension size, Dimension preferredSize) {
+		super(parent, size, preferredSize);
+		GraphicButton title = new GraphicButton("img/menu/zapisano.png", 0.4, 0.2);
         GraphicButton menu = new GraphicButton("img/menu/menu.png", 0.4, 0.7);
         menu.setAction("menu");
         graphicObjects.add(title);
         graphicObjects.add(menu);
 
+		
 	}
 	@Override
 	public void mouseMoved(MouseEvent e)
@@ -44,6 +45,7 @@ public class CrashScene extends Scene {
 	            }
 	        }
 	    }
+
 	public void menu()
 	{
 		parentPanel.setState(GameState.Menu);
@@ -81,18 +83,22 @@ public class CrashScene extends Scene {
 	        }
 	    }
 
+
+
 	@Override
 	public void keyPressed(KeyEvent arg0) {
-
-		}
+		
+	}
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
 	
+		
 	}
 
 	@Override
 	public void keyTyped(KeyEvent arg0) {
+		
 	}
 
 	@Override

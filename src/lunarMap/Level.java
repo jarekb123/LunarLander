@@ -43,6 +43,13 @@ public class Level {
     public Level() {
 		this.gameMap = new GameMap();
 	}
+    public void setParameters(int dif)
+    {
+    	dif--;
+    	maxVy-=dif*15;
+    	maxVx=dif*15;
+    	gravity+=dif*4;
+    }
 	/**
 	 * metoda wczytująca dane z pliku konfiguracyjnego
 
@@ -134,5 +141,9 @@ public class Level {
 	public int getBonusNumber()
 	{
 		return bonusNumber;
+	}
+	public void setMaxVy(double VY)
+	{
+		this.maxVy=VY;
 	}
 }

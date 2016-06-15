@@ -86,6 +86,7 @@ public class GameMap {
 		g2d.setColor(c);
 		g2d.draw(returnMapPolygon(gameDimension));
 		g2d.setColor(new Color(255,0,0));
+		
 		for(int i=0;i<landings.length;i++)
 		{
 			g2d.draw(landings[i]);

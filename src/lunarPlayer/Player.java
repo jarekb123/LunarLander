@@ -6,8 +6,10 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Properties;
 
 import javax.imageio.ImageIO;
@@ -19,7 +21,7 @@ import lunarGraphics.GraphicObject;
  */
 public class Player extends GraphicObject{
 	private String name;
-	private int score;
+	private Integer score;
 	private double vX, vY;
 	private double fuelLevel, maxFuelLevel;
 	private boolean isRunning;
@@ -97,6 +99,22 @@ public class Player extends GraphicObject{
       	 e.printStackTrace();	
       	 return false;
         } 
+	}
+	public void savePlayer()
+	{
+		 try {
+		        Properties props = new Properties();
+		        props.setProperty("name", this.name);
+		        props.setProperty("score", ""+this.score);
+		        props.setProperty("imgPath", ""+this.imgPath);
+		        props.setProperty("fuelLevel", ""+this.fuelLevel);
+		        File f = new File(name+".properties");
+		        OutputStream out = new FileOutputStream( f );
+		        props.store(out, "This is an optional header comment string");
+		    }
+		    catch (Exception e ) {
+		        e.printStackTrace();
+		    }
 	}
 	/** 
 	 * metoda zwracająca obrazek gracza
@@ -297,9 +315,7 @@ public class Player extends GraphicObject{
 	g2d.drawString("y: "+(int)(getY()*preferredSize.height), 0, (int)(size.height*0.1));
 	g2d.drawString("vX: "+(int)getvX(), 0, (int)(size.height*0.15));
 	g2d.drawString("vY: "+(int)getvY(), 0, (int)(size.height*0.2));
-	//g2d.drawString("g: "+level.getGravity(), 0, (int)(size.height*0.25));
 	g2d.drawString("Fuel", (int)(size.width-100), (int)(size.height*0.05));
-        
         g2d.fillRect((int)(size.width-100), (int)(size.height*0.05), (int)(fuelLevel*100/maxFuelLevel), (int)(scaleY*10));
 	 }
     public void addLife()
@@ -309,5 +325,9 @@ public class Player extends GraphicObject{
     public int getLifes()
     {
     	return lifes;
+    }
+    public void addPoints(long p)
+    {
+    	score+=(int)p;
     }
 }

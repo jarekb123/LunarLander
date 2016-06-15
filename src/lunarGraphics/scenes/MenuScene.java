@@ -95,7 +95,11 @@ public class MenuScene extends Scene {
     }
     public void saveGame()
     {
-    	//TODO: zrobić zapis
+    	parentPanel.getPlayer().savePlayer();
+    	parentPanel.setState(GameState.SaveGame);
+        parentPanel.initScene(GameState.SaveGame);
+  
+    	
     }
     public void newGame()
     {
