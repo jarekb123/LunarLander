@@ -53,8 +53,10 @@ public class LPanel extends JPanel implements Runnable, KeyListener, MouseListen
     Scene scene;
     /** Scena, która zarządza i wyświetla planszę (mapę i gracza). */
     GameScene gameScene;
-    Player player;
-    Level level;
+    Player player=new Player();
+    Level level=new Level();
+    int difficultyLevel=1;
+    long points=0;
     long time=System.currentTimeMillis();
 
     /**
@@ -72,7 +74,8 @@ public class LPanel extends JPanel implements Runnable, KeyListener, MouseListen
         BestScore,
         Options,
         Crashed,
-        Success
+        Success,
+        SaveGame
         
     }
     GameState state;
@@ -84,9 +87,9 @@ public class LPanel extends JPanel implements Runnable, KeyListener, MouseListen
      LPanel(String propFile)
 
     {
-        state = GameState.Play;
+        state = GameState.Menu;
         scene = null;
-  
+        player.loadPlayer("player.properties");
         loadProperties(propFile);
         setPreferredSize(preferredDim);
         setMinimumSize(minDim);
@@ -152,7 +155,8 @@ public class LPanel extends JPanel implements Runnable, KeyListener, MouseListen
     		scene= new CrashScene(this,getSize(),preferredDim);
     	if(gs== GameState.Success)
     		scene= new SuccessScene(this,getSize(),preferredDim); 
-			
+		if(gs== GameState.SaveGame)
+			scene= new SaveGameScene(this,getSize(),preferredDim);
     }
     /**
      * Metoda rysująca grafikę na @class LPanel
@@ -401,5 +405,20 @@ public class LPanel extends JPanel implements Runnable, KeyListener, MouseListen
     {
     	gameScene=gs;
     }
-
+    public void setPoints(long Points)
+    {
+    	points=Points;
+    }
+    public long getPoints()
+    {
+    	return points;
+    }
+    public int getDifficultyLevel()
+    {
+    	return difficultyLevel;
+    }
+    public void setDifficultyLevel(int st)
+    {
+    	difficultyLevel=st;
+    }
 }

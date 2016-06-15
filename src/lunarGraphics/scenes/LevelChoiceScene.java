@@ -43,6 +43,7 @@ public class LevelChoiceScene extends Scene {
 		//TODO:poprawic wybieranie lvl
 		Integer num=Integer.parseInt(number);
 		String filename=new String();
+		System.out.println(number);
 		if(num==0)
 			filename="map.properties";
 		else 
@@ -73,7 +74,9 @@ public class LevelChoiceScene extends Scene {
                {
                    clicked = true;
                    String btnAction = gBtn.getAction();
-                  startGame(btnAction);
+                  
+                   
+                   startGame(btnAction);
                }
                
             }
