@@ -148,6 +148,14 @@ public class Player extends GraphicObject{
 	{
 		return vX;
 	}
+	public void setVx(double vx)
+	{
+		this.vX=vx;
+	}
+	public void setVy(double vy)
+	{
+		this.vY=vy;
+	}
 	/**
 	 * metoda zwracająca prędkość w osi Y
 	 * @return vY

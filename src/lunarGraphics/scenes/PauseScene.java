@@ -67,7 +67,9 @@ public class PauseScene extends Scene {
      * Powrót do gry
      */
 
-
+/**
+ * metoda wracajaca spowrotem z pauzy do gry
+ */
     public void resume()
     {
         parentPanel.setState(GameState.Play);
@@ -105,7 +107,9 @@ public class PauseScene extends Scene {
             }
         }
     }
-
+/**
+ * metoda przechodzaca do okna opcji
+ */
     public void settings()
     {
     	parentPanel.setState(GameState.Options);

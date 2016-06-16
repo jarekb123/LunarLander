@@ -32,12 +32,18 @@ public class Instruction extends Scene {
 	     
 	     
 	}
+	/**
+	 * metoda zmieniajaca scene spowrotem na menu
+	 */
 	public void back()
 	{
 		parentPanel.setState(GameState.Menu);
         parentPanel.initScene(GameState.Menu);
 			
 	}
+	/**
+	 * metoda zmieniajaca stan instrukcji co wplywa na wyswietlany tekst
+	 */
 	public void next()
 	{
 		if(state<3)
@@ -110,6 +116,10 @@ public class Instruction extends Scene {
 	}
 	
 	}
+	/**
+	 * metoda wyswietlajaca odpowiedni tekst instrukcji
+	 * @param g2d
+	 */
 	public void drawInstruction(Graphics2D g2d)
 	{
 		if(state==1)

@@ -38,6 +38,10 @@ public class LevelChoiceScene extends Scene {
 		
 	
 	}
+	/**
+	 * metoda wywolywana w reakcji na wybor poziomu. Laduje odpowiedni level względem wyboru 
+	 * @param number
+	 */
 	public void startGame(String number)
 	{
 		//TODO:poprawic wybieranie lvl
@@ -45,7 +49,7 @@ public class LevelChoiceScene extends Scene {
 		String filename=new String();
 		System.out.println(number);
 		if(num==0)
-			filename="map.properties";
+			filename="map1.properties";
 		else 
 			filename="map2.properties";
 		level.loadLevel(filename);
