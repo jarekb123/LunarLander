@@ -58,7 +58,7 @@ public class GameScene extends Scene
        level=parentPanel.getLevel();
         player = new Player();
         player=parentPanel.getPlayer();
-        level.setParameters(parentPanel.getDifficultyLevel()-1);
+        level.setParameters(parentPanel.getDifficultyLevel());
         graphicObjects.add(player);
         graphicObjects.add(bonus);
     }

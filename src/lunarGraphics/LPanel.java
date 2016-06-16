@@ -252,6 +252,7 @@ public class LPanel extends JPanel implements Runnable, KeyListener, MouseListen
         final LPanel lunar = new LPanel("window.properties");
         
         JFrame frame = new JFrame("Lunar v2");
+        frame.setMinimumSize(minDim);
         frame.addKeyListener(lunar);
         frame.addMouseListener(lunar.scene);
         frame.addMouseMotionListener(lunar);

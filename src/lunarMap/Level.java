@@ -47,7 +47,7 @@ public class Level {
     {
     	dif--;
     	maxVy-=dif*15;
-    	maxVx=dif*15;
+    	maxVx-=dif*15;
     	gravity+=dif*4;
     }
 	/**

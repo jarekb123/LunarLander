@@ -45,7 +45,7 @@ public class LevelChoiceScene extends Scene {
 		String filename=new String();
 		System.out.println(number);
 		if(num==0)
-			filename="map.properties";
+			filename="map1.properties";
 		else 
 			filename="map2.properties";
 		level.loadLevel(filename);

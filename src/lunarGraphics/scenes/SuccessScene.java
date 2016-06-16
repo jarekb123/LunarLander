@@ -12,6 +12,8 @@ import java.awt.event.MouseEvent;
 import lunarGraphics.GraphicButton;
 import lunarGraphics.LPanel;
 import lunarGraphics.LPanel.GameState;
+import lunarMap.Level;
+import lunarPlayer.Player;
 
 public class SuccessScene extends Scene {
 
@@ -19,10 +21,13 @@ public class SuccessScene extends Scene {
 	public SuccessScene(LPanel parent, Dimension size, Dimension preferredSize) {
 		super(parent, size, preferredSize);
 		 GraphicButton sign = new GraphicButton("img/menu/sukces.png", 0.5, 0.3);
-	     GraphicButton retur = new GraphicButton("img/menu/wroc.png",0.5,0.8);
+	     GraphicButton retur = new GraphicButton("img/menu/wroc.png",0.3,0.8);
+	     GraphicButton next = new GraphicButton("img/menu/next.png",0.7,0.8);
 	     retur.setAction("back");
+	     next.setAction("next");
 	     graphicObjects.add(sign);
 	     graphicObjects.add(retur);
+	     graphicObjects.add(next);
 		
 	}
 	public void back()
@@ -30,6 +35,23 @@ public class SuccessScene extends Scene {
 		parentPanel.setState(GameState.Menu);
         parentPanel.initScene(GameState.Menu);
 			
+	}
+	public void next()
+	{
+		Integer lvl =parentPanel.getLevel().getNumber();
+		//lvl++;
+		lvl=lvl%2;
+		lvl++;
+		Level lev=new Level();
+		lev.loadLevel("map"+lvl.toString()+".properties");
+		Player pl=parentPanel.getPlayer();
+		pl.setX(0.5);
+		pl.setY(0.15);
+		pl.setVx(0);
+		pl.setVy(0);
+		parentPanel.setLevel(lev);
+		parentPanel.setState(GameState.Play);
+		parentPanel.initScene(GameState.Play);
 	}
 	@Override
     public void mouseClicked(MouseEvent e)
@@ -50,6 +72,9 @@ public class SuccessScene extends Scene {
                   {
                   case "back":
                 	  back();
+                	  break;
+                  case "next":
+                	  next();
                 	  break;
                  default: 
                 	 break;
