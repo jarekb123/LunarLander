@@ -98,11 +98,11 @@ public class GraphicButton extends GraphicObject implements ImageObserver
         else img1 = img;
         if(img1 != null)
         {
-            int scaleX = size.width/preferredSize.width;
-            int scaleY = size.height/preferredSize.height;
+            double scaleX = (double)(size.width)/(double)(preferredSize.width);
+            double scaleY = (double)(size.height)/(double)(preferredSize.height);
 
-            int width = img1.getWidth(this)*scaleX;
-            int height = img1.getHeight(this)*scaleY;
+            int width =(int) (img1.getWidth(this)*scaleX);
+            int height =(int)( img1.getHeight(this)*scaleY);
             int xx = (int)(x*size.width) - width/2;
             int yy = (int)(y*size.height) - height/2;
             g2d.drawImage(img1, xx, yy, width, height, this);      

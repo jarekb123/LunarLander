@@ -33,6 +33,9 @@ public class NewGameScene extends Scene {
 	       
 		 
 	}
+	/**
+	 * metoda tworzaca nowego playera o wybranym loginie
+	 */
 	public void accept()
 	{
 		//TODO: tworzenie playera od zera
@@ -42,6 +45,9 @@ public class NewGameScene extends Scene {
 		parentPanel.setState(GameState.LevelChoice);
         parentPanel.initScene(GameState.LevelChoice);
 	}
+	/**
+	 * metoda wracajaca spowrotem do menu
+	 */
 	public void back()
 	{
 		parentPanel.setState(GameState.Menu);

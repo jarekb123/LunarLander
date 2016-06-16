@@ -7,9 +7,4 @@ public class ExtraPointsBonus extends Bonus {
 		super(imgPath, x, y);
 		
 	}
-	public int addPoints()
-	{
-		return points;
-	}
-
 }

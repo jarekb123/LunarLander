@@ -34,6 +34,9 @@ public class OptionScene extends Scene {
 	    graphicObjects.add(more);
 	    graphicObjects.add(less);
 	}
+	/**
+	 * metoda ustawiajaca wybrany poziom trudnosci i wracajaca do menu
+	 */
 	public void back()
 	{
 		parentPanel.setDifficultyLevel(state);
@@ -41,16 +44,25 @@ public class OptionScene extends Scene {
         parentPanel.initScene(GameState.Menu);
 			
 	}
+	/**
+	 * metoda zwiekszajaca poziom trudnosci
+	 */
 	public void more()
 	{
 		state++;
 		changeDifficultyLevel();
 	}
+	/**
+	 * metoda zmniejszajaca poziom trudnosci
+	 */
 	public void less()
 	{
 		state--;
 		changeDifficultyLevel();
 	}
+	/**
+	 * metoda zmieniajaca poziom trudnosci int na string
+	 */
 	public void changeDifficultyLevel()
 	{
 		//state--;

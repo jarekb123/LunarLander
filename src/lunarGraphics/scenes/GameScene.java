@@ -74,8 +74,6 @@ public class GameScene extends Scene
         Integer x=player.getLifes();
         Double g=level.getGravity();
         g2d.drawString("Time:"+this.currTime/100000, (int)(size.width-100), (int)(size.height*0.15));
-        g2d.drawString(x.toString(), (int)(size.width-100), (int)(size.height*0.25));
-        g2d.drawString(g.toString(), (int)(size.width-100), (int)(size.height*0.25));
         g2d.setColor(new Color(12, 16, 116));
         Font f = new Font("Comic Sans MS", Font.BOLD, 30);
         g2d.setFont(f);
@@ -83,6 +81,7 @@ public class GameScene extends Scene
         g2d.drawString(player.getName(), (int)(size.width-100), (int)(size.height*0.35));
         
     }
+
     
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -121,6 +120,9 @@ public class GameScene extends Scene
 
 		
 	}
+/**
+ * Metoda oblicza punkty za poziom na podstawie czasu
+ */
 	public void calculatePoints()
 	{
 		points+=currTime/1000;
@@ -162,6 +164,9 @@ public class GameScene extends Scene
 		
 		
 	}
+    /**
+     * metoda zmieniajaca stan gry sluzaca do wyswietlania 3..2..1..
+     */
     public void updateState()
     {
     	long t=System.currentTimeMillis()-timeState;
@@ -179,6 +184,10 @@ public class GameScene extends Scene
     		}
     	}
     }
+    /**
+     * metoda zmieniajaca polozenie bonusu, ktory porusza sie losowo
+     * @param dt czas jaki uplynal od ostatniego uaktualnienia
+     */
     public void updateBonus(long dt)
     {
     	double freefall=level.getGravity()*dt/1000;
@@ -194,6 +203,9 @@ public class GameScene extends Scene
     	bonus.setX(newX);
     	bonus.setY(newY);
     }
+    /**
+     * metoda,ktora sprawdza czy zostal zlapany bonus
+     */
    public void ifBonusCatched()
     {
     	if(!bonus.iftouched())
@@ -223,7 +235,12 @@ public class GameScene extends Scene
 	   }
     }
 	
-
+/**
+ * metoda sprawdzajaca czy statek spelnil warunki ladowania w lotnisku.
+ *  Rowniez jesli sie uda podlicza punkty za wybranie ladowiska
+ * @param gameDim
+ * @return
+ */
     	public boolean ifLanded(Dimension gameDim)
     	{
     		level.getMap().createLandings(gameDim);

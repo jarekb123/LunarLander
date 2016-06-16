@@ -38,6 +38,10 @@ public class LevelChoiceScene extends Scene {
 		
 	
 	}
+	/**
+	 * metoda wywolywana w reakcji na wybor poziomu. Laduje odpowiedni level względem wyboru 
+	 * @param number
+	 */
 	public void startGame(String number)
 	{
 		//TODO:poprawic wybieranie lvl

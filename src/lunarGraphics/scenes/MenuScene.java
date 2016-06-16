@@ -57,12 +57,17 @@ public class MenuScene extends Scene {
             graphicObjects.get(i).paintImage(g2d, size, preferredSize);
         }
     }
-
+/**
+ * metoda powracajaca z okna pauzy na okno gry z powrotem
+ */
     public void resume()
     {
         parentPanel.setState(GameState.Play);
         parentPanel.initScene(GameState.Play);
     }
+    /**
+     * metoda zamykajaca okno
+     */
     public void exit()
     {
         System.exit(2);
@@ -88,11 +93,17 @@ public class MenuScene extends Scene {
             }
         }
     }
+    /**
+     * metoda przechodzaca do sceny ladowania gry
+     */
     public void loadGame()
     {
     	parentPanel.setState(GameState.LoadGame);
         parentPanel.initScene(GameState.LoadGame);
     }
+    /**
+     * metoda przechodzaca do sceny zapisu osiagniec playera
+     */
     public void saveGame()
     {
     	parentPanel.getPlayer().savePlayer();
@@ -101,21 +112,33 @@ public class MenuScene extends Scene {
   
     	
     }
+    /**
+     * metoda przechodzaca do sceny nowej gry
+     */
     public void newGame()
     {
     	parentPanel.setState(GameState.NewGame);
         parentPanel.initScene(GameState.NewGame);
     }
+    /**
+     * metoda przechodzaca do sceny instrukcji
+     */
     public void instruction()
     {
     	parentPanel.setState(GameState.Instruction);
         parentPanel.initScene(GameState.Instruction);
     }
+    /**
+     * metoda przechodzaca d sceny opcji
+     */
     public void options()
     {
     	parentPanel.setState(GameState.Options);
         parentPanel.initScene(GameState.Options);
     }
+    /**
+     * metoda przechodzaca do sceny z najlpeszymi wynikami
+     */
     public void bestscore()
 	{
 		

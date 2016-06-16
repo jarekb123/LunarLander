@@ -45,7 +45,9 @@ public class SaveGameScene extends Scene {
 	            }
 	        }
 	    }
-
+/**
+ * metoda wracajaca spowrotem do menu
+ */
 	public void menu()
 	{
 		parentPanel.setState(GameState.Menu);

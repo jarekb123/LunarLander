@@ -44,6 +44,9 @@ public class CrashScene extends Scene {
 	            }
 	        }
 	    }
+	/**
+	 * metoda zmieniajaca scene spowrotem na menu
+	 */
 	public void menu()
 	{
 		parentPanel.setState(GameState.Menu);

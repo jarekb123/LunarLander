@@ -69,6 +69,9 @@ public class LoadGameScene extends Scene {
             }
         }
     }
+	/**
+	 * wczytywanie odpowiedniego playera z pliku
+	 */
 	public void accept()
 	{
 		
@@ -81,6 +84,9 @@ public class LoadGameScene extends Scene {
 		parentPanel.setState(GameState.LevelChoice);
         parentPanel.initScene(GameState.LevelChoice);
 	}
+	/**
+	 * metoda zmieniajaca scene spowrotem na menu
+	 */
 	public void back()
 	{
 		parentPanel.setState(GameState.Menu);

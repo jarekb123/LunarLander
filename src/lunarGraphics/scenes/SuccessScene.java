@@ -30,12 +30,18 @@ public class SuccessScene extends Scene {
 	     graphicObjects.add(next);
 		
 	}
+	/**
+	 * metoda wracajaca spowrotem do menu
+	 */
 	public void back()
 	{
 		parentPanel.setState(GameState.Menu);
         parentPanel.initScene(GameState.Menu);
 			
 	}
+	/**
+	 * metoda przechodzaca do kolejnego poziomu rozgrywki
+	 */
 	public void next()
 	{
 		Integer lvl =parentPanel.getLevel().getNumber();
