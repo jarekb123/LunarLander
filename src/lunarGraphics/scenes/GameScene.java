@@ -54,7 +54,8 @@ public class GameScene extends Scene
     {
         super(parent, size, preferredSize);
         level = new Level();
-        bonus=new ExtraLifeBonus("img/bonus.png",0.6,0.4);
+
+        bonus=new ExtraLifeBonus("img/bonus.png",0.4,0.2);
        level=parentPanel.getLevel();
         player = new Player();
         player=parentPanel.getPlayer();

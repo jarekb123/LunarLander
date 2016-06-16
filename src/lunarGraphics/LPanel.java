@@ -124,7 +124,7 @@ public class LPanel extends JPanel implements Runnable, KeyListener, MouseListen
             scene = new PauseScene(this, getSize(), preferredDim);
 
     	if(gs == GameState.Menu)
-            scene = new MenuScene(this,getSize(),preferredDim);
+            scene = new MenuScene(this, getSize(), preferredDim);
     	
     	if(gs== GameState.Play)
     	{
@@ -255,8 +255,9 @@ public class LPanel extends JPanel implements Runnable, KeyListener, MouseListen
         frame.addKeyListener(lunar);
         frame.addMouseListener(lunar.scene);
         frame.addMouseMotionListener(lunar);
+        frame.setMinimumSize(minDim);
         frame.addWindowListener(new WindowAdapter() {
-
+        
 
             @Override
             public void windowIconified(WindowEvent we) {
