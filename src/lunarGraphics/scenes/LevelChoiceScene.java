@@ -1,3 +1,4 @@
+
 package lunarGraphics.scenes;
 
 import java.awt.Color;
@@ -12,12 +13,15 @@ import lunarGraphics.GraphicButton;
 import lunarGraphics.LPanel;
 import lunarGraphics.LPanel.GameState;
 import lunarMap.Level;
+import lunarNetwork.Client;
 import lunarPlayer.Player;
 
 public class LevelChoiceScene extends Scene {
 
 	Player player;
 	Level level=new Level();
+	boolean isOnlineModeOn = true;
+
 	public LevelChoiceScene(LPanel parent, Dimension size, Dimension preferredSize) {
 		super(parent, size, preferredSize);
 		player=parentPanel.getPlayer();
@@ -44,16 +48,27 @@ public class LevelChoiceScene extends Scene {
 	 */
 	public void startGame(String number)
 	{
-		//TODO:poprawic wybieranie lvl
 		Integer num=Integer.parseInt(number);
 		String filename=new String();
 		System.out.println(number);
-		if(num==0)
-			filename="map1.properties";
-		else 
-			filename="map2.properties";
-		level.loadLevel(filename);
-		parentPanel.setLevel(level);
+		if(isOnlineModeOn)
+		{
+			Client client = new Client();
+			level = client.getLevel(num+1);
+			System.out.println("break");
+			parentPanel.setLevel(level);
+		}
+		else
+		{
+			//TODO:poprawic wybieranie lvl
+			
+			if(num==0)
+				filename="map.properties";
+			else 
+				filename="map2.properties";
+			level.loadLevel(filename);
+			parentPanel.setLevel(level);
+		}
 		GameScene gs=new GameScene(parentPanel,parentPanel.getSize(),preferredSize);
 		gs.level=level;
 		gs.player=player;
@@ -119,3 +134,4 @@ public class LevelChoiceScene extends Scene {
 	}
 
 }
+

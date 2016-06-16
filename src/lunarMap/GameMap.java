@@ -1,3 +1,4 @@
+
 package lunarMap;
 
 import java.awt.Color;
@@ -76,8 +77,10 @@ public class GameMap {
 	 */
 	public BufferedImage getImage()
 	{
+		System.out.println("getImage_imgByteslen: " + imgBytes.length);
 		try
 		{
+			
 			if(imgBytes == null)
 			{
 				throw new Exception("Tablica bajtów obrazka jest pusta");

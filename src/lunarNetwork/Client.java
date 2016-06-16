@@ -1,3 +1,4 @@
+
 package lunarNetwork;
 
 import java.io.BufferedReader;
@@ -10,6 +11,9 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Base64;
 import java.util.StringTokenizer;
+
+import lunarMap.GameMap;
+import lunarMap.Level;
 
 public class Client {
 	/** 
@@ -73,18 +77,22 @@ public class Client {
 	 * Metoda pobierająca dane poziomu
 	 * @param level numer poziomu
 	 */
-	public void getLevel(int level)
+	public Level getLevel(int levelNumber)
 	{
 		try {
 				connect();
-				System.out.println(send("loadlevel " + level));
-				StringTokenizer answerToken = new StringTokenizer(getAnswer()); 
+				System.out.println(send("loadlevel " + levelNumber));
+				String command = getAnswer();
+				System.out.println("com: "+command);
+				StringTokenizer answerToken = new StringTokenizer(command); 
 				
 				String imgPath = null;
 				int bonusNo;
-				double [] x , y;
-				double landingsx, landingsy, gravity, maxVx, maxVy;
-				byte [] image_bytes;
+				double [] x = null, y = null , landingsx = null, landingsy = null;
+				double gravity, maxVx, maxVy;
+				byte [] image_bytes = null;
+				
+				
 				if(answerToken.nextToken().equals("sendlevel"))
 				{
 					imgPath = answerToken.nextToken();
@@ -92,19 +100,50 @@ public class Client {
 					bonusNo = Integer.parseInt(answerToken.nextToken());
 					maxVx = Double.parseDouble(answerToken.nextToken());
 					maxVy = Double.parseDouble(answerToken.nextToken());
-					landingsx = Double.parseDouble(answerToken.nextToken());
-					landingsy = Double.parseDouble(answerToken.nextToken());
 				}
 				else throw new Exception("Bledna odpowiedz serwera");
-				 String answer = getAnswer();
-				if(getAnswer().equals("map coordinates"))
+				command = getAnswer();
+				System.out.println("com: "+command);
+				if(command.equals("landings coordinates"))
 				{
 					String [] xStr  = getAnswer().split(",");
 					String [] yStr = getAnswer().split(",");
+					landingsx = new double[xStr.length];
+					for(int i = 0; i< xStr.length; i++)
+					{
+						landingsx[i] = Double.parseDouble(xStr[i])-0.1;
+					}
+					landingsy = new double[yStr.length];
+					for(int i = 0; i< yStr.length; i++)
+					{
+						landingsy[i] = Double.parseDouble(yStr[i])-0.1;
+					}
+				}
+				command = getAnswer();
+				System.out.println("com: "+command);
+				if(command.equals("map coordinates"))
+				{
+					String [] xStr  = getAnswer().split(",");
+					String [] yStr = getAnswer().split(",");
+					x = new double[xStr.length+1];
+					for(int i = 1; i< xStr.length; i++)
+					{
+						x[i] = Double.parseDouble(xStr[i-1]);
+					}
+					y = new double[yStr.length+1];
+					for(int i = 1; i< yStr.length; i++)
+					{
+						y[i] = Double.parseDouble(yStr[i-1]);
+					}
+					x[0]=0d;
+					y[0]=1d;
+					x[xStr.length]=1d;
+					y[yStr.length]=1d;
 				}
 				else throw new Exception("Bledna odpowiedz serwera");
-				
-				if(getAnswer().equals("image bytes start"))
+				command = getAnswer();
+				System.out.println("com: "+command);
+				if(command.equals("image bytes start"))
 				{
 					String received;
 					String imgBase64 = "";
@@ -115,8 +154,11 @@ public class Client {
 					}
 					image_bytes = Base64.getDecoder().decode(imgBase64);
 				}
+				System.out.println("bytes_len:" + image_bytes.length);
+				GameMap gamemap = new GameMap(x, y, landingsx, landingsy, image_bytes);
 				
 				disconnect();
+				return new Level(levelNumber, gravity, maxVx, maxVy, bonusNo, gamemap);
 			
 		} catch (UnknownHostException e) {
 			System.out.println("Nieznany host!");
@@ -128,7 +170,7 @@ public class Client {
 			System.out.println(ex);
 		}
 		
-		
+		return null;
 	}
 
 }
