@@ -25,10 +25,15 @@ public class BestScoreScene extends Scene {
 	     retur.setAction("back");
 	     graphicObjects.add(sign);
 	     graphicObjects.add(retur);
-	     //TODO:wczytywanie z serwera danych
-	     
-	     bestPlayer=new String[1];
-	     bestPlayer[0]=new String("Jarek 400pkt");
+	     //TODO:WAŻNE::wczytywanie z serwera danych 3 najlepszych graczy i przypisac do PROTOCOLDATA
+	     String protocolData= new String("Abacki 100pkt Cabacki 200pkt Babacki 300pkt	");
+	     String[]data=protocolData.split(" ");	     
+	    		 
+	     bestPlayer=new String[3];
+	     for(int i=0;i<3;i++)
+	     {
+	    	 bestPlayer[i]=new String(data[i*2]+"  "+data[i*2+1]); 
+	     }
 	}
 	/**
 	 * metoda pomocnicza do zmiany sceny spowrotem na menu
@@ -97,9 +102,7 @@ public class BestScoreScene extends Scene {
         	String str=bestPlayer[i];
         	g2d.drawString(str,(int)(size.width*0.3), (int)(size.height*(0.4+0.1*i)));
         }
-        g2d.drawString("Babacki",(int)(size.width*0.3), (int)(size.height*0.55));
-        g2d.drawString("Cabacki",(int)(size.width*0.3), (int)(size.height*0.7));
-	    for(int i=0; i<graphicObjects.size(); i++)
+        for(int i=0; i<graphicObjects.size(); i++)
         {
             graphicObjects.get(i).paintImage(g2d, size, preferredSize);
         }
