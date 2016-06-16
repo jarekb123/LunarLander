@@ -51,7 +51,7 @@ public class LevelChoiceScene extends Scene {
 		Integer num=Integer.parseInt(number);
 		String filename=new String();
 		System.out.println(number);
-		if(isOnlineModeOn)
+		if(Client.isOnlineModeOn())
 		{
 			Client client = new Client();
 			level = client.getLevel(num+1);

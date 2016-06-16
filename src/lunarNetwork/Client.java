@@ -2,14 +2,19 @@
 package lunarNetwork;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Base64;
+import java.util.Properties;
 import java.util.StringTokenizer;
 
 import lunarMap.GameMap;
@@ -40,9 +45,34 @@ public class Client {
 	 */
 	public void connect() throws UnknownHostException, IOException
 	{
-		socket = new Socket("localhost", 5555);
+		System.setProperty("file.encoding","UTF-8");
+		InputStream is = null;
+		 
+      try 
+      {
+	       	Properties properties=new Properties();
+	       	is = new FileInputStream(new File("network.properties"));
+			properties.load(is);
+			
+			String host = properties.getProperty("host");
+			String port = properties.getProperty("port");
+			
+			is.close();
+		socket = new Socket(host, Integer.parseInt(port));
 		output = new PrintWriter(socket.getOutputStream(), true);
 		input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+      
+      }
+      catch (FileNotFoundException e)
+      {
+     	 System.out.println("Bledna nazwa pliku konfiguracyjnego funkcjonalnosci sieciowej. Prawidlowa: network.properties");	
+      } 
+      catch (IOException e) 
+      {
+    	  System.out.println("Błąd we/wy");
+      }
+      
+		
 	}
 	/**
 	 * Metoda rozłączająca połączenie z serwerem i zamykająca strumienie wejściowe i wyjściowe
@@ -172,5 +202,63 @@ public class Client {
 		
 		return null;
 	}
-
+	public String getBestScores()
+	{
+		try {
+			connect();
+			
+			send("getBestScores");
+			
+			String answer = getAnswer();
+			String bestScores = null;
+			if(answer.equals("sendBestScores"))
+			{
+				bestScores = getAnswer();
+			}
+			else throw new Exception("Bledna odpowiedz serwera");
+			disconnect();
+		return bestScores;
+		} catch (UnknownHostException e) {
+			System.out.println("Nieznany host");
+		} catch (IOException e) {
+			System.out.println("Blad we/wy");
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+		}
+		return null;
+	}
+	/**
+	 * Metoda sprawdzająca czy włączony jest 
+	 * @return
+	 */
+	public static boolean isOnlineModeOn()
+	{
+		System.setProperty("file.encoding","UTF-8");
+		InputStream is = null;
+		 
+      try 
+      {
+	       	Properties properties=new Properties();
+	       	is = new FileInputStream(new File("network.properties"));
+			properties.load(is);
+			
+			String mode = properties.getProperty("onlineMode");
+			if(mode.equals("on"))
+			{
+				return true;
+			}
+			
+			is.close();
+			
+      }
+      catch (FileNotFoundException e)
+      {
+     	 System.out.println("Bledna nazwa pliku konfiguracyjnego funkcjonalnosci sieciowej. Prawidlowa: network.properties");	
+      } 
+      catch (IOException e) 
+      {
+    	  System.out.println("Błąd we/wy");
+      }
+      return false;
+	}
 }
