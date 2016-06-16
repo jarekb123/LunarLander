@@ -37,7 +37,15 @@ public class Level {
 		this.bonusNumber = bonusNumber;
 		this.gameMap = new GameMap();
 	}
-	
+	public Level(int number, double gravity, double maxVx, double maxVy, int bonusNumber, GameMap map)
+	{
+		this.number = number;
+		this.gravity = gravity;
+		this.maxVx = maxVx;
+		this.maxVy = maxVy;
+		this.bonusNumber = bonusNumber;
+		this.gameMap = map;
+	}
     /**
      *
      */
