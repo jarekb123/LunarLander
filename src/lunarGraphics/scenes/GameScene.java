@@ -54,7 +54,7 @@ public class GameScene extends Scene
     {
         super(parent, size, preferredSize);
         level = new Level();
-        bonus=new ExtraLifeBonus("img/bonus.png",0.6,0.6);
+        bonus=new ExtraLifeBonus("img/bonus.png",0.6,0.4);
        level=parentPanel.getLevel();
         player = new Player();
         player=parentPanel.getPlayer();
@@ -239,7 +239,8 @@ public class GameScene extends Scene
     		for(int i=0;i<landings.length;i++)
     		{
     			if(landings[i].intersects(x, y, width, height)
-    					&& level.getMaxVx()>player.getvX()&& level.getMaxVy()>player.getvY())
+    					&& level.getMaxVx()>player.getvX()
+    					&& level.getMaxVy()>player.getvY())
     			{
     			//TODO: jeszcze można to trochę elastyczniej
     				points+=i*1000;

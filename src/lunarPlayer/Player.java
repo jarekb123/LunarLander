@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -112,9 +113,14 @@ public class Player extends GraphicObject{
 		        OutputStream out = new FileOutputStream( f );
 		        props.store(out, "This is an optional header comment string");
 		    }
+		 catch(FileNotFoundException e)
+		 {
+			 
+		 }
 		    catch (Exception e ) {
-		        e.printStackTrace();
+		       // e.printStackTrace();
 		    }
+		
 	}
 	/** 
 	 * metoda zwracająca obrazek gracza
