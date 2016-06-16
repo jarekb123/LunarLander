@@ -27,6 +27,7 @@ public class Level {
 	 * @param maxVy jaka jest maxymalna prędkość w osi y aby wylądować
 	 * @param bonusNumber ile jest bonusów na planszy
 	 */
+	
 	public Level(int number, double gravity, double maxVx, double maxVy, int bonusNumber)
 	{
 		this.number = number;
@@ -47,7 +48,7 @@ public class Level {
     {
     	dif--;
     	maxVy-=dif*15;
-    	maxVx=dif*15;
+    	maxVx-=dif*15;
     	gravity+=dif*4;
     }
 	/**

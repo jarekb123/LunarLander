@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -20,17 +21,29 @@ import javax.imageio.ImageIO;
  */
 public class GameMap {
 	
-	private Double [] x, y,xLandings,yLandings; 
+	private double [] x, y,xLandings,yLandings; 
 	private String imgPath;
 	
 	public Rectangle[] landings;
 	boolean firstTime=true;
+	
+	private byte[] imgBytes;
+	public GameMap() {}
+	public GameMap(double[] x, double[] y, double [] xLandings, double [] yLandings, byte [] imgBytes)
+	{
+		this.x = x;
+		this.y = y;
+		this.xLandings = xLandings;
+		this.yLandings = yLandings;
+		this.imgBytes = imgBytes;
+	}
 	//private 
 	/**
 	 * metoda zwracająca plansze zgodna z wymiarami okna
 	 * @param gameDimension- wymiary okna
 	 * @return Polygon o wspólrzędnych zgodnych z x[] i y[]
 	 */
+	
 	public Polygon returnMapPolygon(Dimension gameDimension)
 	{
 		Polygon p = new Polygon();
@@ -58,14 +71,22 @@ public class GameMap {
 		
 	}
 	/**
-	 * metoda zwracająca obraz tła z pliku
+	 * metoda zwracająca obraz tła z tablicy bajtów
 	 * @return obraz klasy BufferedImage
 	 */
 	public BufferedImage getImage()
 	{
 		try
 		{
-			return ImageIO.read(new FileInputStream(imgPath));
+			if(imgBytes == null)
+			{
+				throw new Exception("Tablica bajtów obrazka jest pusta");
+			}
+			else
+			{
+				InputStream in = new ByteArrayInputStream(imgBytes);
+				return ImageIO.read(in);
+			}
 		}
 		catch(Exception e)
 		{
@@ -74,6 +95,19 @@ public class GameMap {
 			System.exit(0);
 			return null;
 		}
+	}
+	/**
+	 * Metoda ładująca obrazek do tablicy bajtów
+	 * @param filename ścieżka obrazka
+	 * @throws IOException wyjątek gdy błąd strumienia bajtów pliku
+	 */
+	public void loadImage(String filename) throws IOException
+	{
+		File file = new File(filename);
+		FileInputStream file_input = new FileInputStream(file);
+		imgBytes = new byte[(int) file.length()];
+		file_input.read(imgBytes);
+		
 	}
 	/** metoda rysujaca wyskalowaną mapę z grafiką
 	 * @param g2d - kontekst graficzny 2D
@@ -107,10 +141,11 @@ public class GameMap {
 			is = new FileInputStream(new File(filename));
 			properties.load(is);
 			imgPath = properties.getProperty("imgPath");
+			loadImage(imgPath);
 			String [] xTab = properties.getProperty("x").split(",");
 			String [] yTab = properties.getProperty("y").split(",");
-			x = new Double[xTab.length+2];
-			y = new Double[yTab.length+2];
+			x = new double[xTab.length+2];
+			y = new double[yTab.length+2];
 			for(int i=1; i<=xTab.length; i++)
 			{
 				x[i] = Double.parseDouble(xTab[i-1]);
@@ -122,8 +157,8 @@ public class GameMap {
 			y[xTab.length+1]=1d;
 			String[] xlandings=properties.getProperty("landingsx").split(",");
 			String[] ylandings=properties.getProperty("landingsy").split(",");
-			xLandings=new Double[xlandings.length];
-			yLandings=new Double[ylandings.length];
+			xLandings=new double[xlandings.length];
+			yLandings=new double[ylandings.length];
 			for(int i=0;i<xlandings.length;i++)
 			{
 				xLandings[i]=Double.parseDouble(xlandings[i])-0.1;
